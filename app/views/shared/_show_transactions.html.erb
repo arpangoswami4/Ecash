@@ -1,0 +1,40 @@
+<div>
+    
+    <table class="table table-hover  table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% i=1 %>
+        <% @transactions.each do |transaction| %>
+            <% if transaction.sign %>
+                <tr class="bg-success text-white">
+            <% else %>
+                <tr class="bg-danger text-white">
+            <% end %>
+            <th scope="row"><%= i %></th>
+            <td><%=transaction.amount%></td>
+            <td><%=transaction.description%></td>
+            <% if transaction.sign %>
+                <td><%= "Credit" %></td>
+            <% else %>
+                <td><%= "Debit" %></td>
+            <% end %>
+            <td><%= link_to "Edit", edit_transaction_path(id:transaction.id), class:"btn btn-info"%></td>
+            <td><%= button_to "Delete", destroy_transaction_path(id:transaction.id), method: :delete, class:"btn btn-warning"%></td>
+            </tr>  
+        <% i+=1 %>
+        <% end %>
+        </tbody>
+    </table>
+    <%= link_to "New Transaction", new_transaction_path,class:"btn btn-primary" %>
+    <%= link_to "Back to Ledgers", root_path,class:"btn btn-primary" %>
+    
+</div>

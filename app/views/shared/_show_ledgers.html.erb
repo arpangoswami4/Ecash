@@ -1,0 +1,33 @@
+
+
+<h3>Ledgers</h3>
+
+<div>
+    
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Expand</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% i=1 %>
+        <% @ledgers.each do |ledger| %>
+            <tr>
+            <th scope="row"><%= i %></th>
+            <td><%=ledger.name%></td>
+            <td><%= link_to "Expand",show_transactions_path(id:ledger.id), class:"btn btn-success"%></td>
+            <td><%= link_to "Edit", edit_ledger_path(id:ledger.id), class:"btn btn-info"%></td>
+            <td><%= button_to "Delete", destroy_ledger_path(id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
+            </tr>  
+        <% i+=1 %>
+        <% end %>
+        </tbody>
+    </table>
+    <%= link_to "New Ledger", new_ledger_path,class:"btn btn-primary" %>
+    
+</div>

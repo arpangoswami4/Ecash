@@ -1,0 +1,11 @@
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <div>
+        <h1 class="mb-3">Transactions</h1>
+    </div>
+    <div>
+        <h5 class="mb-3">Name: <%= @ledger.name %></h5>
+    </div>
+    <div>
+    <%= render partial:"shared/show_transactions"  %>
+    </div>    
+</div>

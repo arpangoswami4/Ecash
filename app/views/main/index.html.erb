@@ -1,3 +1,9 @@
-<div class="d-flex align-items-center justify-content-center">
-    <h1>Welcome to Ecash</h1>
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <div>
+        <h1 class>Welcome to Ecash</h1>
+    </div>
+    <% if @user %>
+        <%= render partial: "shared/show_ledgers"  %> 
+    <% end %>
+    
 </div>

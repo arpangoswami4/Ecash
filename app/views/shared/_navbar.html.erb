@@ -12,26 +12,28 @@
       <li class="nav-item">
         <%= link_to "About",about_path ,class:"nav-link" %>
       </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
       <% if session[:user_id] %>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown pad">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= @user.name %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Report</a>
             <div class="dropdown-divider"></div>
             <%= button_to 'Log-out', log_out_path ,method: :delete,class:"dropdown-item" %>
           </div>
         </li>
       <% else %>
       <li class="nav-item sign_space">
-        <%= link_to "Sign Up",sign_up_path ,class:"btn btn-primary red-color " %>
+        <%= link_to "Sign Up",sign_up_path ,class:"btn btn-primary col" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Log In",sign_up_path ,class:"btn btn-primary red-color" %>
+        <%= link_to "Log In",log_in_path ,class:"btn btn-primary col" %>
       </li>
-    <% end %>    
-    </ul>
+    <% end %> 
+    </ul>   
+    
   </div>
 </nav>
