@@ -27,14 +27,14 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td><%= link_to "Edit", edit_transaction_path(id:transaction.id), class:"btn btn-info"%></td>
-            <td><%= button_to "Delete", destroy_transaction_path(id:transaction.id), method: :delete, class:"btn btn-warning"%></td>
+            <td><%= link_to "Edit", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
+            <td><%= button_to "Delete", destroy_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             </tr>  
         <% i+=1 %>
         <% end %>
         </tbody>
     </table>
-    <%= link_to "New Transaction", new_transaction_path,class:"btn btn-primary" %>
+    <%= link_to "New Transaction", new_transaction_path(ledger_id:@ledger.id),class:"btn btn-primary" %>
     <%= link_to "Back to Ledgers", root_path,class:"btn btn-primary" %>
     
 </div>

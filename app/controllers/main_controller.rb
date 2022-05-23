@@ -23,11 +23,11 @@ class MainController < ApplicationController
     end
 
     def edit
-        @ledger=Ledger.find(params[:id])
+        @ledger=Ledger.find(params[:ledger_id])
     end
 
     def update
-        @ledger=Ledger.find(params[:id])
+        @ledger=Ledger.find(params[:ledger_id])
         if @ledger.update(ledger_params)
             redirect_to root_path,notice:"Name Edited Successfully"
         else
@@ -36,7 +36,7 @@ class MainController < ApplicationController
     end
 
     def destroy
-        Ledger.find(params[:id]).destroy
+        Ledger.find(params[:ledger_id]).destroy
         redirect_to root_path,notice:"Ledger Deleted"
     end
 

@@ -2,7 +2,7 @@
     <h1>Edit Ledger</h1>
     <div>
 
-    <%= form_with model:@ledger,url: edit_ledger_path(id:@ledger.id),method: :patch do |form| %>
+    <%= form_with model:@ledger,url: edit_ledger_path(ledger_id:@ledger.id),method: :patch do |form| %>
         <% if @ledger.errors.any? %>
             <div class="alert alert-danger">
                 <% @ledger.errors.full_messages.each do |m| %>

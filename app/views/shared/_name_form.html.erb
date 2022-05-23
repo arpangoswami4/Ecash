@@ -1,19 +1,17 @@
-
-    
-    <%= form_with model:@ledger,url: new_ledger_path do |form| %>
-        <% if @ledger.errors.any? %>
-            <div class="alert alert-danger">
-                <% @ledger.errors.full_messages.each do |m| %>
-                    <div><%= m %></div>
-                <% end %>
-            </div>
-        <% end %>
-        <div class="mb-3">
-            <%= form.label :name %>
-            <%= form.text_field :name, class:"form-control" %>
+<%= form_with model:@ledger,url: new_ledger_path do |form| %>
+    <% if @ledger.errors.any? %>
+        <div class="alert alert-danger">
+            <% @ledger.errors.full_messages.each do |m| %>
+                <div><%= m %></div>
+            <% end %>
         </div>
-        <div class="mb-3 d-flex align-items-center justify-content-center">
-            <%= form.submit "Post Ledger", class:"btn btn-primary " %>
-        </div>
+    <% end %>
+    <div class="mb-3">
+        <%= form.label :name %>
+        <%= form.text_field :name, class:"form-control" %>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-center">
+        <%= form.submit "Post Ledger", class:"btn btn-primary " %>
+    </div>
 <% end %>
 

@@ -20,9 +20,9 @@
             <tr>
             <th scope="row"><%= i %></th>
             <td><%=ledger.name%></td>
-            <td><%= link_to "Expand",show_transactions_path(id:ledger.id), class:"btn btn-success"%></td>
-            <td><%= link_to "Edit", edit_ledger_path(id:ledger.id), class:"btn btn-info"%></td>
-            <td><%= button_to "Delete", destroy_ledger_path(id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
+            <td><%= link_to "Expand",show_transactions_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
+            <td><%= link_to "Edit", edit_ledger_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
+            <td><%= button_to "Delete", destroy_ledger_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
             </tr>  
         <% i+=1 %>
         <% end %>
