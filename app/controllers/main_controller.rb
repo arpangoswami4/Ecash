@@ -10,6 +10,26 @@ class MainController < ApplicationController
         @ledger=Ledger.new
     end
 
+    def report_page
+        @generated=false
+    end
+    def report_generate
+        @generated=true
+        @debited=0
+        @credited=0
+        @user.ledgers do |l|
+            @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
+            .sum(:amount)
+            @p1=params[:year]
+            @p2=params[:month]
+            @x=params[:test]
+            @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
+            .sum(:amount)
+        end
+        render :report_page
+
+    end
+
     def create
         @ledger=@user.ledgers.create(ledger_params)
         if @ledger.save
@@ -17,7 +37,6 @@ class MainController < ApplicationController
         else
             render :new
         end
-
 
 
     end
