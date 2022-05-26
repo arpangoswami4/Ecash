@@ -10,7 +10,7 @@
             <%= label_tag :year,"Specify Year" %>
             <%= select_tag :year,options_for_select([["This Year",Time.zone.now.year]]+(2000..Time.zone.now.year).to_a),class:"custom-select" %>
         </div>
-        <%=text_field_tag :test %>
+        
         <div class="mb-3 d-flex align-items-center justify-content-center">
             <%= submit_tag "Generate Report", class:"btn btn-primary " %>
         </div>

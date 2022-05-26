@@ -17,12 +17,9 @@ class MainController < ApplicationController
         @generated=true
         @debited=0
         @credited=0
-        @user.ledgers do |l|
+        @user.ledgers.each do |l|
             @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
-            .sum(:amount)
-            @p1=params[:year]
-            @p2=params[:month]
-            @x=params[:test]
+            .sum(:amount)            
             @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
             .sum(:amount)
         end
