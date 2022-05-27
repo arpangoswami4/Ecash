@@ -1,0 +1,26 @@
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <h1>Edit Ledger</h1>
+    <div>
+
+    <%= form_with model:@ledger,url: edit_ledger_path(ledger_id:@ledger.id),method: :patch do |form| %>
+        <% if @ledger.errors.any? %>
+            <div class="alert alert-danger">
+                <% @ledger.errors.full_messages.each do |m| %>
+                    <div><%= m %></div>
+                <% end %>
+            </div>
+        <% end %>
+        <div class="mb-3">
+            <%= form.label :name %>
+            <%= form.text_field :name, class:"form-control" %>
+        </div>
+        <div class="mb-3 d-flex align-items-center justify-content-center">
+            <%= form.submit "Edit Ledger", class:"btn btn-primary " %>
+        </div>
+<% end %>
+
+
+    </div>
+
+    <%= link_to "Back to Ledgers", root_path,class:"btn btn-primary" %>
+</div>

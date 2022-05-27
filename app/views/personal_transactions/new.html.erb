@@ -1,0 +1,9 @@
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <h1>New Transaction</h1>
+    <div>
+        
+        <%= render partial: "shared/transaction_form" %>
+    </div>
+
+    <%= link_to "Back to Transaction", show_transactions_path(ledger_id:params[:ledger_id]),class:"btn btn-primary" %>
+</div>

@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_12_110655) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_27_070652) do
   create_table "ledgers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "created_by"
+    t.string "updated_by"
     t.index ["user_id"], name: "index_ledgers_on_user_id"
   end
 
@@ -26,6 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_12_110655) do
     t.boolean "sign"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "created_by"
+    t.string "updated_by"
     t.index ["ledger_id"], name: "index_transactions_on_ledger_id"
   end
 
