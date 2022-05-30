@@ -20,14 +20,14 @@
             <tr>
             <th scope="row"><%= i %></th>
             <td><%=ledger.name%></td>
-            <td><%= link_to "Expand",show_transactions_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
-            <td><%= link_to "Edit", edit_ledger_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
-            <td><%= button_to "Delete", destroy_ledger_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
+            <td><%= link_to "Expand",show_transactions_all_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
+            <td><%= link_to "Edit", edit_ledger_all_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
+            <td><%= button_to "Delete", destroy_all_ledger_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
             </tr>  
         <% i+=1 %>
         <% end %>
         </tbody>
     </table>
-    <%= link_to "New Ledger", new_ledger_path,class:"btn btn-primary" %>
+    <%= link_to "New Ledger", new_ledger_all_path,class:"btn btn-primary" %>
     
 </div>

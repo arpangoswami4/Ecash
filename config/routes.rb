@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
 
   get "new_ledger_all", to: "main#new"
-  post "new_ledge_all", to:"main#create"  
+  post "new_ledger_all", to:"main#create"  
   delete "destroy_ledger_all", to:"main#destroy"
   patch "edit_ledger_all",  to:"main#update"
   get "edit_ledger_all",  to:"main#edit"

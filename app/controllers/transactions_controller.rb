@@ -7,9 +7,11 @@ class TransactionsController < ApplicationController
         @transaction=Transaction.new
     end
     def create       
-        @transaction=@ledger.transactions.new(transaction_params)
+        new_params=transaction_params
+        new_params[:created_by]=@user.name
+        @transaction=@ledger.transactions.new(new_params)
         if @transaction.save
-            redirect_to show_transactions_path(ledger_id:params[:ledger_id]),notice:"Transaction Saved Successfully"
+            redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]),notice:"Transaction Saved Successfully"
         else
             render :new
         end
@@ -20,9 +22,11 @@ class TransactionsController < ApplicationController
     end
 
     def update    
+        new_params=transaction_params
+        new_params[:updated_by]=@user.name
         @transaction=Transaction.find(params[:transaction_id])
-        if @transaction.update(transaction_params)
-            redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Edited"
+        if @transaction.update(new_params)
+            redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Edited"
         else
             render :new
         end
@@ -30,7 +34,7 @@ class TransactionsController < ApplicationController
 
     def destroy
         Transaction.find(params[:transaction_id]).destroy
-        redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Deleted"
+        redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Deleted"
     end
     private
     def set_ledger

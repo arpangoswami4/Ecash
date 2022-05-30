@@ -3,9 +3,11 @@ class PersonalTransactionsController < ApplicationController
     def show
         @transactions=@ledger.transactions.all
     end
+
     def new
         @transaction=Transaction.new
     end
+    
     def create       
         new_params=transaction_params
         new_params[:created_by]=@user.name

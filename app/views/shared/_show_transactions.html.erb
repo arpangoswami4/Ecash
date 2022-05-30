@@ -7,7 +7,9 @@
             <th scope="col">Amount</th>
             <th scope="col">Description</th>
             <th scope="col">Type</th>
+            <th scope="col">Created By</th>
             <th scope="col">Edit</th>
+            <th scope="col">Last Edited By</th>
             <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -27,14 +29,16 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td><%= link_to "Edit", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
-            <td><%= button_to "Delete", destroy_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
+            <td><%=transaction.created_by%></td>
+            <td><%= link_to "Edit", edit_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
+            <td class="text-center"><%=transaction.updated_by ? transaction.updated_by : "-"%></td>
+            <td><%= button_to "Delete", destroy_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             </tr>  
         <% i+=1 %>
         <% end %>
         </tbody>
     </table>
-    <%= link_to "New Transaction", new_transaction_path(ledger_id:@ledger.id),class:"btn btn-primary" %>
+    <%= link_to "New Transaction", new_transaction_all_path(ledger_id:@ledger.id),class:"btn btn-primary" %>
     <%= link_to "Back to Ledgers", root_path,class:"btn btn-primary" %>
     
 </div>

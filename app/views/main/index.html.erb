@@ -3,7 +3,43 @@
         <h1 class>Welcome to Ecash</h1>
     </div>
     <% if @user %>
-        <%= render partial: "shared/show_ledgers"  %> 
+
+
+<h3>Ledgers</h3>
+
+<div>
+    
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Expand</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Last Edited By</th>
+            <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% i=1 %>
+        <% @ledgers.each do |ledger| %>
+            <tr>
+            <th scope="row"><%= i %></th>
+            <td><%= ledger.name %></td>
+            <td><%= ledger.created_by %></td>
+            <td><%= link_to "Expand",show_transactions_all_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
+            <td><%= link_to "Edit", edit_ledger_all_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
+            <td class="text-center"><%= ledger.updated_by || "-" %></td>
+            <td><%= button_to "Delete", destroy_ledger_all_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
+            </tr>  
+        <% i+=1 %>
+        <% end %>
+        </tbody>
+    </table>
+    <%= link_to "New Ledger", new_ledger_all_path,class:"btn btn-primary" %>
+    
+</div>
     <% end %>
     
 </div>
