@@ -9,22 +9,8 @@ class PersonalController < ApplicationController
         @ledger=Ledger.new
     end
 
-    def report_page
-        @generated=false
-    end
-    def report_generate
-        @generated=true
-        @debited=0
-        @credited=0
-        @user.ledgers.each do |l|
-            @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
-            .sum(:amount)            
-            @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
-            .sum(:amount)
-        end
-        render :report_page
-
-    end
+    
+    
 
     def create
         new_params=ledger_params

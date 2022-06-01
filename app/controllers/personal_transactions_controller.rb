@@ -1,5 +1,5 @@
 class PersonalTransactionsController < ApplicationController
-    before_action :set_ledger,only: [:show,:create]
+    before_action :set_ledger , only: [:show,:create]
     def show
         @transactions=@ledger.transactions.all
     end
@@ -38,11 +38,18 @@ class PersonalTransactionsController < ApplicationController
         Transaction.find(params[:transaction_id]).destroy
         redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Deleted"
     end
+
+    def delete_document
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(updated_by:@user.name)
+        transaction.document.purge
+        redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Document Successfully Deleted"
+    end
     private
     def set_ledger
-        @ledger=Ledger.find(params[:ledger_id])
+        @ledger = Ledger.find(params[:ledger_id])
     end
     def transaction_params
-        params.require(:transaction).permit(:amount,:sign,:description)
+        params.require(:transaction).permit(:amount,:sign,:description,:document)
     end
 end

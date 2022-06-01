@@ -17,12 +17,20 @@ class MainController < ApplicationController
         @generated=true
         @debited=0
         @credited=0
+        @debited_all=0
+        @credited_all=0
+        @month=params[:month].to_i
+        @year=params[:year]
         @user.ledgers.each do |l|
             @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
             .sum(:amount)            
             @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
             .sum(:amount)
         end
+        @debited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
+        .sum(:amount)
+        @credited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
+        .sum(:amount)
         render :report_page
 
     end

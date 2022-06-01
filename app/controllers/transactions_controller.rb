@@ -31,6 +31,12 @@ class TransactionsController < ApplicationController
             render :new
         end
     end
+    def delete_document
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(updated_by:@user.name)
+        transaction.document.purge
+        redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Document Successfully Deleted"
+    end
 
     def destroy
         Transaction.find(params[:transaction_id]).destroy
@@ -41,7 +47,7 @@ class TransactionsController < ApplicationController
         @ledger=Ledger.find(params[:ledger_id])
     end
     def transaction_params
-        params.require(:transaction).permit(:amount,:sign,:description)
+        params.require(:transaction).permit(:amount,:sign,:description,:document)
     end
 
 end

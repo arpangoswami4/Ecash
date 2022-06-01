@@ -19,17 +19,21 @@
             <%= form.text_area :description, size:"10x3", class:"form-control" %>
         </div>
         <div class="text-center">
-        <h6><strong>Transaction Type</strong></h6>
+            <h6><strong>Transaction Type</strong></h6>
         </div>
         <div class="mb-3 pad2">
             <%= form.radio_button :sign,true, class:"form-check-input" %>
             <%= form.label :sign_true,"Credit" ,class:"form-check-label" %>
         </div>
-        
         <div class="mb-3 pad2">
             <%= form.radio_button :sign,false, class:"form-check-input" %>
             <%= form.label :sign_false,"Debit",class:"form-check-label" %>
         </div>
+        
+        <div class="mb-3 wid-set">
+            <%= form.file_field :document,class:"form-control"%>
+        </div>
+
         <div class="mb-3 d-flex align-items-center justify-content-center">
             <%= form.submit "Post Transaction", class:"btn btn-primary " %>
         </div>

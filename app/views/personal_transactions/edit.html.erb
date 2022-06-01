@@ -28,6 +28,19 @@
                 <%= form.radio_button :sign,false, class:"form-check-input" %>
                 <%= form.label :sign_false,"Debit",class:"form-check-label" %>
             </div>
+            <div class="mb-3 wid-set">
+                <div class="text-center">
+                    <h6><strong>Document</strong></h6>
+                </div>
+                <div class="mb-3 d-flex align-items-center justify-content-center">
+                <% if @transaction.document.attached? %>
+                    <%=link_to 'Previous Document', url_for(@transaction.document),class:"btn btn-secondary",target: :blank%>
+                <%end%>
+                </div>
+                <%= form.file_field :document,class:"form-control"%>
+                
+            </div>
+
             <div class="mb-3 d-flex align-items-center justify-content-center">
                 <%= form.submit "Edit Transaction", class:"btn btn-primary " %>
             </div>

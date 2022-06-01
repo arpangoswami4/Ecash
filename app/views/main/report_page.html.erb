@@ -4,7 +4,7 @@
     <%= form_tag report_path,method: :post do%>
         <div class="my-3">
             <%= label_tag :month,"Specify Month" %>
-            <%= select_tag :month,options_for_select([["This Month",Time.now.month]]+(1..12).to_a),class:"custom-select" %>
+            <%= select_tag :month,options_for_select([["This Month",Time.now.month]]+(1..12).map{|m| [ Date::MONTHNAMES[m] ,m ]}),class:"custom-select" %>
         </div>
         <div class="mb-3">
             <%= label_tag :year,"Specify Year" %>
@@ -17,15 +17,35 @@
         <%end%>
         <%if @generated %>
             <div>
+            <h5><strong>Report Generated for <%=Date::MONTHNAMES[@month]%>,<%=@year%> </strong></h5>
+            <div class="mb-3 text-center">
+                <h6><strong>Personal Report</strong></h6>
+            </div>
                 <div class="mb-3">
                     <%="Credited: #{@credited}" %>
                 </div>
                 <div class="mb-3">
-                    <%="Debited: #{@debited} #{@p1} #{@p2} #{@x}" %>
+                    <%="Debited: #{@debited}" %>
                 </div>
                 <div class="mb-3">
                     <%="Net Profit: #{@credited-@debited}" %>
                 </div>
+
+            </div>
+            <div>
+            <div class="mb-3 text-center">
+                <h6><strong>Total Report</strong></h6>
+            </div>
+                <div class="mb-3">
+                    <%="Credited: #{@credited_all}" %>
+                </div>
+                <div class="mb-3">
+                    <%="Debited: #{@debited_all}" %>
+                </div>
+                <div class="mb-3">
+                    <%="Net Profit: #{@credited_all-@debited_all}" %>
+                </div>
+
             </div>
         <%end%>
     </div>
