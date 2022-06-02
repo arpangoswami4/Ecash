@@ -42,6 +42,17 @@ class TransactionsController < ApplicationController
         Transaction.find(params[:transaction_id]).destroy
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Deleted"
     end
+    def approval
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(determination:true,determined_by:@user.name,determined_at:Time.zone.now)
+        redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Approval recored successfully"
+    end
+    def rejection
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(determination:false,determined_by:@user.name,determined_at:Time.zone.now)
+        redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Rejection recored successfully"
+    end
+
     private
     def set_ledger
         @ledger=Ledger.find(params[:ledger_id])

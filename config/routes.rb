@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   patch "edit_transaction_all", to:"transactions#update"
   delete "destroy_transaction_all", to:"transactions#destroy"
   delete "delete_document_all", to:"transactions#delete_document"
+  patch "approve_transaction_all", to:"transactions#approval"
+  patch "reject_transaction_all", to:"transactions#rejection"
   
   get "personal", to:"personal#index"
   get "new_ledger", to: "personal#new"
@@ -46,6 +48,9 @@ Rails.application.routes.draw do
   patch "edit_transaction", to:"personal_transactions#update"
   delete "destroy_transaction", to:"personal_transactions#destroy"
   delete "delete_document", to:"personal_transactions#delete_document"
+  patch "approve_transaction", to:"personal_transactions#approval"
+  patch "reject_transaction", to:"personal_transactions#rejection"
+
   
 
 

@@ -22,14 +22,14 @@ class MainController < ApplicationController
         @month=params[:month].to_i
         @year=params[:year]
         @user.ledgers.each do |l|
-            @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
+            @debited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false).where(determination:[true,nil])
             .sum(:amount)            
-            @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
+            @credited+=l.transactions.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true).where(determination:[true,nil])
             .sum(:amount)
         end
-        @debited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false)
+        @debited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:false).where(determination:[true,nil])
         .sum(:amount)
-        @credited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true)
+        @credited_all+=Transaction.all.where("EXTRACT(Year from updated_at) = ?",params[:year]).where("EXTRACT(Month from updated_at) = ?",params[:month]).where(sign:true).where(determination:[true,nil])
         .sum(:amount)
         render :report_page
 

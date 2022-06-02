@@ -45,6 +45,16 @@ class PersonalTransactionsController < ApplicationController
         transaction.document.purge
         redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Document Successfully Deleted"
     end
+    def approval
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(determination:true,determined_by:@user.name,determined_at:Time.zone.now)
+        redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Approval recored successfully"
+    end
+    def rejection
+        transaction=Transaction.find(params[:transaction_id])
+        transaction.update(determination:false,determined_by:@user.name,determined_at:Time.zone.now)
+        redirect_to show_transactions_path(ledger_id:params[:ledger_id]), notice:"Rejection recored successfully"
+    end
     private
     def set_ledger
         @ledger = Ledger.find(params[:ledger_id])

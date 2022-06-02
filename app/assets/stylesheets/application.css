@@ -29,7 +29,15 @@
 }
 .col{
     background-color:rgb(255, 0, 179);
+    border: none;
     
+}
+.bc-1{
+    background-color:rgb(96, 17, 148);
+}
+.bc-2{
+    background-color:rgb(241, 141, 47);
+    border: none;
 }
 .pad{
     padding-right: 65px;
@@ -40,4 +48,13 @@
 }
 .wid-set{
     width: 233px;
+}
+.bc-4{
+    background-color: rgb(7, 53, 150);
+    border: none;
+}
+
+.bc-5{
+    background-color: rgb(100, 2, 71);
+    border: none;
 }

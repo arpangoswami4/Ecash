@@ -14,10 +14,10 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Created By</th>
+            <th scope="col">Created</th>
             <th scope="col">Expand</th>
             <th scope="col">Edit</th>
-            <th scope="col">Last Edited By</th>
+            <th scope="col">Last Edited</th>
             <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -27,10 +27,16 @@
             <tr>
             <th scope="row"><%= i %></th>
             <td><%= ledger.name %></td>
-            <td><%= ledger.created_by %></td>
+            <td><%= ledger.created_by %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <td><%= link_to "Expand",show_transactions_all_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
             <td><%= link_to "Edit", edit_ledger_all_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
-            <td class="text-center"><%= ledger.updated_by || "-" %></td>
+            <td class="text-center">
+            <% if ledger.updated_by %>
+                <%=ledger.updated_by%>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%else%>
+                    ___
+                <% end %>
+                </td>
             <td><%= button_to "Delete", destroy_ledger_all_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
             </tr>  
         <% i+=1 %>
