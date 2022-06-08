@@ -53,7 +53,7 @@
                     <td><%= button_to "Delete", destroy_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             <% end %>
             <% if transaction.document.attached? %>
-                <td><%=link_to 'View', url_for(transaction.document),class:"btn btn-secondary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
+                <td><%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
                 <% if transaction.determination==nil %>          
                     <%= button_to delete_document_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do%>
                         Remove <i class="fa fa-trash"></i>

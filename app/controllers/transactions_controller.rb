@@ -1,7 +1,17 @@
 class TransactionsController < ApplicationController
-    before_action :set_ledger,only: [:show,:create]
+    before_action :set_ledger,only: [:show,:create,:show_filter]
     def show
         @transactions=@ledger.transactions.all
+    end
+    def show_filter
+        parameters={}
+        parameters[:criteria]=params[:criteria][1..-2].split(",")
+        if parameters[:criteria][0]== nil && parameters[:criteria][0]== nil
+            redirect_to  show_transactions_all_path(ledger_id:params[:ledger_id]),notice:"Filtered Content"
+        end
+        @transactions=@ledger.transactions.where("EXTRACT(Month from updated_at) >= ? AND EXTRACT(Year from updated_at) >= ?",parameters[:criteria][0].to_i,parameters[:criteria][1].to_i).
+        where("EXTRACT(Month from updated_at) <= ? AND EXTRACT(Year from updated_at) <= ?",parameters[:criteria][2].to_i,parameters[:criteria][3].to_i)
+        render :show,locals:{ ledger_id:params[:ledger_id],criteria:params[:criteria] }
     end
     def new
         @transaction=Transaction.new
@@ -44,12 +54,12 @@ class TransactionsController < ApplicationController
     end
     def approval
         transaction=Transaction.find(params[:transaction_id])
-        transaction.update(determination:true,determined_by:@user.name,determined_at:Time.zone.now)
+        transaction.update(determination:true,updated_by:@user.name,determined_by:@user.name,determined_at:Time.zone.now)
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Approval recored successfully"
     end
     def rejection
         transaction=Transaction.find(params[:transaction_id])
-        transaction.update(determination:false,determined_by:@user.name,determined_at:Time.zone.now)
+        transaction.update(determination:false,updated_by:@user.name,determined_by:@user.name,determined_at:Time.zone.now)
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Rejection recored successfully"
     end
 

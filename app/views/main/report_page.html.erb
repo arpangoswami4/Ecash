@@ -4,11 +4,11 @@
     <%= form_tag report_path,method: :post do%>
         <div class="my-3">
             <%= label_tag :month,"Specify Month" %>
-            <%= select_tag :month,options_for_select([["This Month",Time.now.month]]+(1..12).map{|m| [ Date::MONTHNAMES[m] ,m ]}),class:"custom-select" %>
+            <%= select_tag :month,options_for_select([["This Month",Time.now.month]]+(1..12).map{|m| [ Date::MONTHNAMES[m] ,m ]},selected:params[:month]),class:"custom-select" %>
         </div>
         <div class="mb-3">
             <%= label_tag :year,"Specify Year" %>
-            <%= select_tag :year,options_for_select([["This Year",Time.zone.now.year]]+(2000..Time.zone.now.year).to_a),class:"custom-select" %>
+            <%= select_tag :year,options_for_select([["This Year",Time.zone.now.year]]+(2000..Time.zone.now.year).to_a,selected:params[:year]),class:"custom-select" %>
         </div>
         
         <div class="mb-3 d-flex align-items-center justify-content-center">
@@ -17,7 +17,7 @@
         <%end%>
         <%if @generated %>
             <div>
-            <h5><strong>Report Generated for <%=Date::MONTHNAMES[@month]%>,<%=@year%> </strong></h5>
+            <h5><strong>Report Generated for <%=Date::MONTHNAMES[params[:month].to_i]%>,<%=params[:year]%> </strong></h5>
             <div class="mb-3 text-center">
                 <h6><strong>Personal Report</strong></h6>
             </div>

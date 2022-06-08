@@ -1,7 +1,15 @@
 class PersonalTransactionsController < ApplicationController
-    before_action :set_ledger , only: [:show,:create]
+    before_action :set_ledger , only: [:show,:create,:show_filter]
     def show
         @transactions=@ledger.transactions.all
+    end
+    def show_filter
+        parameters={}
+        parameters[:criteria]=params[:criteria][1..-2].split(",")
+
+        @transactions=@ledger.transactions.where("EXTRACT(Month from updated_at) >= ? AND EXTRACT(Year from updated_at) >= ?",parameters[:criteria][0].to_i,parameters[:criteria][1].to_i).
+        where("EXTRACT(Month from updated_at) <= ? AND EXTRACT(Year from updated_at) <= ?",parameters[:criteria][2].to_i,parameters[:criteria][3].to_i)
+        render :show,locals:{ ledger_id:params[:ledger_id],criteria:params[:criteria] }
     end
 
     def new

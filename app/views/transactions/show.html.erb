@@ -6,6 +6,22 @@
         <h5 class="mb-3">Name: <%= @ledger.name %></h5>
     </div>
     <div>
+        <%=form_tag show_transactions_all_path(ledger_id:params[:ledger_id]),method: :post do%>
+            <div class="mb-3">
+            <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
+            <%= select_tag :criteria,options_for_select(
+            [
+            ["All Transactions",[nil,nil,Time.zone.now.month,Time.zone.now.year]],
+            ["This Month",[Time.zone.now.month,Time.zone.now.year,Time.zone.now.month,Time.zone.now.year]],
+            ["Last Month",[Time.zone.now.month-1,Time.zone.now.year,Time.zone.now.month-1,Time.zone.now.year]],
+            ["Last Quater",[Time.zone.now.month-2,Time.zone.now.year,Time.zone.now.month,Time.zone.now.year]],
+            ["Last Year",[Time.zone.now.month,Time.zone.now.year-1,Time.zone.now.month,Time.zone.now.year]],
+            ],selected: params[:criteria]
+            ),class:"custom-select", onchange: "this.form.submit()" %>
+            </div>
+        <% end %>
+    </div>
+    <div>
         <%= render partial:"shared/show_transactions"  %>
     </div>    
 </div>

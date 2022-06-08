@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post "report", to: "main#report_generate"
 
   get "show_transactions_all", to: "transactions#show"
+  post "show_transactions_all", to:"transactions#show_filter"
   get "new_transaction_all", to:"transactions#new"
   post "new_transaction_all", to:"transactions#create"
   get "edit_transaction_all", to:"transactions#edit"
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   post "report", to: "personal#report_generate"
 
   get "show_transactions", to: "personal_transactions#show"
+  post "show_transactions", to:"personal_transactions#show_filter"
   get "new_transaction", to:"personal_transactions#new"
   post "new_transaction", to:"personal_transactions#create"
   get "edit_transaction", to:"personal_transactions#edit"
