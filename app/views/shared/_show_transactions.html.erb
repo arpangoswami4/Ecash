@@ -1,6 +1,6 @@
 <div>
     
-    <table class="table table-hover  table-bordered">
+    <table class="table table-hover  table-bordered text-center">
         <thead>
             <tr>
             <th scope="col">#</th>
@@ -28,7 +28,7 @@
             <% end %>
             <th scope="row"><%= i %></th>
             <td><%=transaction.amount%></td>
-            <td><%=transaction.description%></td>
+            <td><%=transaction.description!="" ? transaction.description : "___"%></td>
             <% if transaction.sign %>
                 <td><%= "Credit" %></td>
             <% else %>

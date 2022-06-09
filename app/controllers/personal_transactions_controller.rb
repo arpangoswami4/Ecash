@@ -6,9 +6,7 @@ class PersonalTransactionsController < ApplicationController
     def show_filter
         parameters={}
         parameters[:criteria]=params[:criteria][1..-2].split(",")
-
-        @transactions=@ledger.transactions.where("EXTRACT(Month from updated_at) >= ? AND EXTRACT(Year from updated_at) >= ?",parameters[:criteria][0].to_i,parameters[:criteria][1].to_i).
-        where("EXTRACT(Month from updated_at) <= ? AND EXTRACT(Year from updated_at) <= ?",parameters[:criteria][2].to_i,parameters[:criteria][3].to_i)
+        @transactions=@ledger.transactions.where("updated_at >= ?",parameters[:criteria][1].to_datetime).where("updated_at <= ?",parameters[:criteria][3].to_datetime)
         render :show,locals:{ ledger_id:params[:ledger_id],criteria:params[:criteria] }
     end
 

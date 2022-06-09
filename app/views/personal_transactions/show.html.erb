@@ -11,11 +11,12 @@
             <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
             <%= select_tag :criteria,options_for_select(
             [
-            ["All Transactions",[nil,nil,Time.zone.now.month,Time.zone.now.year]],
-            ["This Month",[Time.zone.now.month,Time.zone.now.year,Time.zone.now.month,Time.zone.now.year]],
-            ["Last Month",[Time.zone.now.month-1,Time.zone.now.year,Time.zone.now.month-1,Time.zone.now.year]],
-            ["Last Quater",[Time.zone.now.month-2,Time.zone.now.year,Time.zone.now.month,Time.zone.now.year]],
-            ["Last Year",[Time.zone.now.month,Time.zone.now.year-1,Time.zone.now.month,Time.zone.now.year]],
+            ["All Transactions",[Time.parse("2000-01-01").strftime("%Y-%m-%d").to_datetime,Time.zone.now]],
+            ["This Month",[Time.zone.now.beginning_of_month,Time.zone.now]],
+            ["Last Month",[(Time.zone.now-1.month).beginning_of_month,(Time.zone.now-1.month).end_of_month]],
+            ["This Quarter",[Time.zone.now.beginning_of_quarter,Time.zone.now]],
+            ["Last Quarter",[Time.zone.now.last_quarter.beginning_of_quarter,Time.zone.now.last_quarter.end_of_quarter]],
+            ["Last Year",[Time.zone.now-1.year,Time.zone.now]],
             ],selected: params[:criteria]
             ),class:"custom-select", onchange: "this.form.submit()" %>
             </div>
@@ -24,7 +25,7 @@
     
     <div>
     
-    <table class="table table-hover  table-bordered">
+    <table class="table table-hover  table-bordered text-center">
         <thead>
             <tr>
             <th scope="col">#</th>
@@ -50,7 +51,7 @@
             <% end %>
             <th scope="row"><%= i %></th>
             <td><%=transaction.amount%></td>
-            <td><%=transaction.description%></td>
+            <td><%=transaction.description!="" ? transaction.description : "___"%></td>
             <% if transaction.sign %>
                 <td><%= "Credit" %></td>
             <% else %>

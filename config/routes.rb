@@ -50,8 +50,11 @@ Rails.application.routes.draw do
   patch "edit_transaction", to:"personal_transactions#update"
   delete "destroy_transaction", to:"personal_transactions#destroy"
   delete "delete_document", to:"personal_transactions#delete_document"
-  patch "approve_transaction", to:"personal_transactions#approval"
+  patch "approve_transaction", to:"personal_transactions#approval" 
   patch "reject_transaction", to:"personal_transactions#rejection"
+
+  get "all_records", to:"all_records#show"
+  post "all_records", to:"all_records#show_filter"
 
   
 

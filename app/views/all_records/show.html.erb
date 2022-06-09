@@ -1,0 +1,98 @@
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <div>
+        <h1 class="mb-3">All Transactions</h1>
+    </div>
+    <div>
+        <%=form_tag all_records_path,method: :post do%>
+            <div class="mb-3">
+            <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
+            <%= select_tag :criteria,options_for_select(
+            [
+            ["All Transactions",[Time.parse("2000-01-01").strftime("%Y-%m-%d").to_datetime,Time.zone.now]],
+            ["This Month",[Time.zone.now.beginning_of_month,Time.zone.now]],
+            ["Last Month",[(Time.zone.now-1.month).beginning_of_month,(Time.zone.now-1.month).end_of_month]],
+            ["This Quarter",[Time.zone.now.beginning_of_quarter,Time.zone.now]],
+            ["Last Quarter",[Time.zone.now.last_quarter.beginning_of_quarter,Time.zone.now.last_quarter.end_of_quarter]],
+            ["Last Year",[Time.zone.now-1.year,Time.zone.now]],
+            ],selected: params[:criteria]
+            ),class:"custom-select", onchange: "this.form.submit()" %>
+            </div>
+        <% end %>
+        </div>
+        <div>
+    
+    <table class="table table-hover  table-bordered text-center t-small">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ledger</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Created</th>
+            <th scope="col">Last Edited</th>
+            <th scope="col">Image</th>
+            <th scope="col">Approval</th>
+            <th scope="col">Determined</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% i=1 %>
+        <% @transactions.each do |transaction| %>
+            <% if transaction.determination == false %>
+                <tr class="bg-secondary">
+            <% elsif transaction.sign %>
+                <tr class="bg-success text-white">
+            <% else %>
+                <tr class="bg-danger text-white">
+            <% end %>
+            <th scope="row"><%= i %></th>
+            <td><%=Ledger.find(transaction.ledger_id).name%></td>
+            <td><%=transaction.amount%></td>
+            <td><%=transaction.description!="" ? transaction.description : "___"%></td>
+            <% if transaction.sign %>
+                <td><%= "Credit" %></td>
+            <% else %>
+                <td><%= "Debit" %></td>
+            <% end %>
+            <td class="text-center"><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td class="text-center">
+            <% if transaction.updated_by %>
+                <%=transaction.updated_by%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%else%>
+                    ___
+                <% end %>
+            </td>
+            <% if transaction.document.attached? %>
+                <td>
+                    <%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
+                </td>
+            <% else %>
+            <td class="text-center">
+                <%="___"%>
+            </td>
+            <% end %>
+            <td class="text-center">
+                <%if transaction.determination == nil  %>
+                    <%="Not Determined"%>
+                <%elsif transaction.determination == true %>
+                    <%= "Approved" %>
+                <% else %>
+                    <%= "Rejected" %>
+                <% end %>
+            </td>
+            <td class="text-center">
+                <% if transaction.determination == nil %>
+                    ___
+                <%else%>
+                    <%=transaction.determined_by %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                <% end %>
+            </td>
+            </tr>  
+        <% i+=1 %>
+        <% end %>
+        </tbody>
+    </table>
+    
+</div>
+</div>
