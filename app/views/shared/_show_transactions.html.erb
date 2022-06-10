@@ -34,13 +34,13 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td class="text-center"><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <% if transaction.determination == nil %>
             <td><%= link_to "Edit", edit_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
             <% else %>
             <td><%= link_to "Edit", edit_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info disabled",disabled:true  %></td>
             <% end %>
-            <td class="text-center">
+            <td>
             <% if transaction.updated_by %>
                 <%=transaction.updated_by%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
@@ -84,7 +84,7 @@
                     <%= "Rejected" %>
                 <% end %>
             </td>
-            <td class="text-center">
+            <td>
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>

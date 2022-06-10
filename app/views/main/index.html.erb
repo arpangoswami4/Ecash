@@ -7,15 +7,18 @@
 
 <h3>Ledgers</h3>
 
-<div>
+<div class="table-responsive-md">
     
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered text-center">
         <thead>
             <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Created</th>
+            <th scope="col">Total Credit</th>
+            <th scope="col">Total Debit</th>
+            <th scope="col">Net Profit</th>
             <th scope="col">Expand</th>
+            <th scope="col">Created</th>
             <th scope="col">Edit</th>
             <th scope="col">Last Edited</th>
             <th scope="col">Delete</th>
@@ -24,13 +27,21 @@
         <tbody>
         <% i=1 %>
         <% @ledgers.each do |ledger| %>
+            <%  credit_amount=ledger.transactions.where(sign:true).where(determination:[true,nil]).sum(:amount)
+                debit_amount=ledger.transactions.where(sign:false).where(determination:[true,nil]).sum(:amount)
+                net_profit =credit_amount-debit_amount
+            %>
+
             <tr>
             <th scope="row"><%= i %></th>
             <td><%= ledger.name %></td>
-            <td><%= ledger.created_by %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td><%= credit_amount %></td>
+            <td><%= debit_amount %></td>
+            <td><%= net_profit %></td>
             <td><%= link_to "Expand",show_transactions_all_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
+            <td><%= ledger.created_by %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <td><%= link_to "Edit", edit_ledger_all_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
-            <td class="text-center">
+            <td>
             <% if ledger.updated_by %>
                 <%=ledger.updated_by%>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
@@ -46,6 +57,10 @@
     <%= link_to "New Ledger", new_ledger_all_path,class:"btn btn-primary" %>
     
 </div>
+    <% else %>
+    <div class="mb-30 text-center">
+        <h5>Login or Sign-up to Continue</h5>
+    </div>
     <% end %>
     
 </div>

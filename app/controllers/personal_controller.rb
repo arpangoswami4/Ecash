@@ -1,8 +1,17 @@
 class PersonalController < ApplicationController
     def index
-        if @user
-            @ledgers=@user.ledgers.all
-        end        
+        ids=[]
+        u_ids=@user.ledgers.ids
+        @divider=u_ids.length
+        ids+=u_ids
+        Transaction.where("created_by=? ",@user.name).each do |t|
+            if ids.exclude? t.ledger_id
+                ids.push t.ledger_id 
+            end
+        end
+        ids.uniq!
+        @ledgers=Ledger.find(ids)
+                
     end
 
     def new

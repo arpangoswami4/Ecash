@@ -23,10 +23,7 @@
 .center-pos h1{
     margin-bottom: 50px;
 }
-.sign_space{
-    margin-right: 20px ;
-    
-}
+
 .col{
     background-color:rgb(255, 0, 179);
     border: none;
@@ -61,4 +58,7 @@
 }
 .t-small{
     font-size: 14px;
+}
+.mb-30{
+    margin-top: 130px;
 }

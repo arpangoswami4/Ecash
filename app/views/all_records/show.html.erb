@@ -8,18 +8,18 @@
             <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
             <%= select_tag :criteria,options_for_select(
             [
-            ["All Transactions",[Time.parse("2000-01-01").strftime("%Y-%m-%d").to_datetime,Time.zone.now]],
-            ["This Month",[Time.zone.now.beginning_of_month,Time.zone.now]],
-            ["Last Month",[(Time.zone.now-1.month).beginning_of_month,(Time.zone.now-1.month).end_of_month]],
-            ["This Quarter",[Time.zone.now.beginning_of_quarter,Time.zone.now]],
-            ["Last Quarter",[Time.zone.now.last_quarter.beginning_of_quarter,Time.zone.now.last_quarter.end_of_quarter]],
-            ["Last Year",[Time.zone.now-1.year,Time.zone.now]],
+            ["All Transactions",[Time.parse("2000-01-01").strftime("%Y-%m-%d").to_date,Time.zone.now.to_date]],
+            ["This Month",[Time.zone.now.beginning_of_month.to_date,Time.zone.now.to_date]],
+            ["Last Month",[(Time.zone.now-1.month).beginning_of_month.to_date,(Time.zone.now-1.month).end_of_month.to_date]],
+            ["This Quarter",[Time.zone.now.beginning_of_quarter.to_date,Time.zone.now.to_date]],
+            ["Last Quarter",[Time.zone.now.last_quarter.beginning_of_quarter.to_date,Time.zone.now.last_quarter.end_of_quarter.to_date]],
+            ["Last Year",[(Time.zone.now-1.year).to_date,Time.zone.now.to_date]],
             ],selected: params[:criteria]
             ),class:"custom-select", onchange: "this.form.submit()" %>
             </div>
         <% end %>
         </div>
-        <div>
+        <div class="table-responsive-md">
     
     <table class="table table-hover  table-bordered text-center t-small">
         <thead>
@@ -55,8 +55,8 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td class="text-center"><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
-            <td class="text-center">
+            <td ><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td >
             <% if transaction.updated_by %>
                 <%=transaction.updated_by%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
@@ -68,11 +68,11 @@
                     <%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
                 </td>
             <% else %>
-            <td class="text-center">
+            <td >
                 <%="___"%>
             </td>
             <% end %>
-            <td class="text-center">
+            <td >
                 <%if transaction.determination == nil  %>
                     <%="Not Determined"%>
                 <%elsif transaction.determination == true %>
@@ -81,7 +81,7 @@
                     <%= "Rejected" %>
                 <% end %>
             </td>
-            <td class="text-center">
+            <td >
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>
