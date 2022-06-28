@@ -67,7 +67,7 @@
             <% end %>
             <td>
             <% if transaction.updated_by %>
-                <%= transaction.updated_by == @user.name ?  "Self" : transaction.updated_by  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%= transaction.updated_by == @user.id.to_s ?  "Self" : User.find(transaction.updated_by).name  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
@@ -112,7 +112,7 @@
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>
-                    <%=transaction.determined_by %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <%=User.find(transaction.determined_by).name %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
                 <% end %>
             </td>
             </tr>  

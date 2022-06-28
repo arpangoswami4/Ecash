@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
     end
     def create       
         new_params=transaction_params
-        new_params[:created_by]=@user.name
+        new_params[:created_by]=@user.id
         @transaction=@ledger.transactions.new(new_params)
         if @transaction.save
             redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]),notice:"Transaction Saved Successfully"
@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
 
     def update    
         new_params=transaction_params
-        new_params[:updated_by]=@user.name
+        new_params[:updated_by]=@user.id
         @transaction=Transaction.find(params[:transaction_id])
         if @transaction.update(new_params)
             redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Transaction Successfully Edited"
@@ -39,7 +39,7 @@ class TransactionsController < ApplicationController
     end
     def delete_document
         transaction=Transaction.find(params[:transaction_id])
-        transaction.update(updated_by:@user.name)
+        transaction.update(updated_by:@user.id)
         transaction.document.purge
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Document Successfully Deleted"
     end
@@ -50,12 +50,12 @@ class TransactionsController < ApplicationController
     end
     def approval
         transaction=Transaction.find(params[:transaction_id])
-        transaction.update(determination:true,updated_by:@user.name,determined_by:@user.name,determined_at:Time.zone.now)
+        transaction.update(determination:true,updated_by:@user.id,determined_by:@user.id,determined_at:Time.zone.now)
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Approval recored successfully"
     end
     def rejection
         transaction=Transaction.find(params[:transaction_id])
-        transaction.update(determination:false,updated_by:@user.name,determined_by:@user.name,determined_at:Time.zone.now)
+        transaction.update(determination:false,updated_by:@user.id,determined_by:@user.id,determined_at:Time.zone.now)
         redirect_to show_transactions_all_path(ledger_id:params[:ledger_id]), notice:"Rejection recored successfully"
     end
 

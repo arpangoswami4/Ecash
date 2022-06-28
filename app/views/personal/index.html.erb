@@ -38,11 +38,11 @@
                 <td><%= debit_amount %></td>
                 <td><%= net_profit %></td>
                 <td><%= link_to "Expand",show_transactions_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
-                <td><%= ledger.created_by == @user.name ?  "Self" : ledger.created_by  %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
+                <td><%= ledger.created_by == @user.id.to_s ?  "Self" : User.find(ledger.created_by).name %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
                 <td><%= link_to "Edit", edit_ledger_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
                 <td>
                 <% if ledger.updated_by %>
-                <%= ledger.updated_by == @user.name ?  "Self" : ledger.updated_by  %>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%= ledger.updated_by == @user.id.to_s ?  "Self" : User.find(ledger.updated_by).name  %>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>

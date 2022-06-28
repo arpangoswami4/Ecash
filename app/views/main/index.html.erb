@@ -39,11 +39,11 @@
             <td><%= debit_amount %></td>
             <td><%= net_profit %></td>
             <td><%= link_to "Expand",show_transactions_all_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
-            <td><%= ledger.created_by %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td><%= User.find(ledger.created_by).name %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <td><%= link_to "Edit", edit_ledger_all_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
             <td>
             <% if ledger.updated_by %>
-                <%=ledger.updated_by%>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%=User.find(ledger.updated_by).name%>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>

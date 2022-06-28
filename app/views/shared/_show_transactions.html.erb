@@ -34,7 +34,7 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td><%=transaction.created_by%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td><%=User.find(transaction.created_by).name%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <% if transaction.determination == nil %>
             <td><%= link_to "Edit", edit_transaction_all_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
             <% else %>
@@ -42,7 +42,7 @@
             <% end %>
             <td>
             <% if transaction.updated_by %>
-                <%=transaction.updated_by%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%=User.find(transaction.updated_by).name%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
@@ -88,7 +88,7 @@
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>
-                    <%=transaction.determined_by %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <%=User.find(transaction.determined_by).name %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
                 <% end %>
             </td>
             </tr>  

@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   patch "edit_ledger_all",  to:"main#update"
   get "edit_ledger_all",  to:"main#edit"
   
-  get "report", to:"main#report_page"
-  post "report", to: "main#report_generate"
+  get "report", to:"report#report_page"
+  post "report", to: "report#report_generate"
 
   get "show_transactions_all", to: "transactions#show"
   post "show_transactions_all", to:"transactions#show_filter"
@@ -39,9 +39,7 @@ Rails.application.routes.draw do
   patch "edit_ledger",  to:"personal#update"
   get "edit_ledger",  to:"personal#edit"
   
-  get "report", to:"personal#report_page"
-  post "report", to: "personal#report_generate"
-
+  
   get "show_transactions", to: "personal_transactions#show"
   post "show_transactions", to:"personal_transactions#show_filter"
   get "new_transaction", to:"personal_transactions#new"
