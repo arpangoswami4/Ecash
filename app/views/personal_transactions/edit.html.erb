@@ -37,7 +37,7 @@
                     <%=link_to 'Previous Document', url_for(@transaction.document),class:"btn btn-secondary bc-1",target: :blank%>
                 <%end%>
                 </div>
-                <%= form.file_field :document,class:"form-control"%>
+                <%= form.file_field :document,accept: "image/*,application/pdf",class:"form-control"%>
                 
             </div>
 

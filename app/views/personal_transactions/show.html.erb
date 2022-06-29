@@ -67,7 +67,7 @@
             <% end %>
             <td>
             <% if transaction.updated_by %>
-                <%= transaction.updated_by == @user.id.to_s ?  "Self" : User.find(transaction.updated_by).name  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%= transaction.updated_by.to_s == @user.id.to_s ?  "Self" : User.find(transaction.updated_by).name  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>

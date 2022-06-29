@@ -1,5 +1,10 @@
 class MainController < ApplicationController
-    
+    before_action :redirect_index,except: [:index]
+    def redirect_index
+        unless @logged_in
+            render "main/index"
+        end
+    end
     def index
         if @user
             @ledgers=Ledger.all

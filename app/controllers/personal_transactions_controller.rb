@@ -1,5 +1,11 @@
 class PersonalTransactionsController < ApplicationController
     before_action :set_ledger , only: [:show,:create,:show_filter]
+    before_action :redirect_index
+    def redirect_index
+        unless @logged_in
+            render "main/index"
+        end
+    end
     def show
         @transactions=@ledger.transactions.where("created_by=?",@user.id)
     end

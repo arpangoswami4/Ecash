@@ -9,7 +9,7 @@
       <li class="nav-item">
         <%= link_to "Home", root_path,class:"nav-link" %>
       </li>
-      <% if @user %>  
+      <% if @logged_in %>  
       <li class="nav-item">
         <%= link_to "Personal Ledger", personal_path,class:"nav-link" %>
       </li>

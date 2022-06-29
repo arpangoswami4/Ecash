@@ -6,8 +6,10 @@ class ApplicationController < ActionController::Base
     def set_current_user
         if session[:user_id]
             @user=User.find(session[:user_id])
+            @logged_in=true
         else
             @user=nil
+            @logged_in=false
         end
     end
 end

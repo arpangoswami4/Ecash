@@ -1,4 +1,10 @@
 class PersonalController < ApplicationController
+    before_action :redirect_index
+    def redirect_index
+        unless @logged_in
+            render "main/index"
+        end
+    end
     def index
         ids=[]
         u_ids=@user.ledgers.ids
