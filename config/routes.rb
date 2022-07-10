@@ -5,58 +5,36 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "about", to: "about#index"
 
-  get "sign_up", to: "registrations#new"
-  post "sign_up", to: "registrations#create"
-  get "log_in", to: "session#new"
-  post "log_in", to: "session#create" 
-  delete "log_out", to: "session#destroy"
+  get "all_records", to:"all_records#index"
+  post "all_records", to:"all_records#index_filter"
 
-
-  get "new_ledger_all", to: "main#new"
-  post "new_ledger_all", to:"main#create"  
-  delete "destroy_ledger_all", to:"main#destroy"
-  patch "edit_ledger_all",  to:"main#update"
-  get "edit_ledger_all",  to:"main#edit"
-  
   get "report", to:"report#report_page"
   post "report", to: "report#report_generate"
 
-  get "show_transactions_all", to: "transactions#show"
-  post "show_transactions_all", to:"transactions#show_filter"
-  get "new_transaction_all", to:"transactions#new"
-  post "new_transaction_all", to:"transactions#create"
-  get "edit_transaction_all", to:"transactions#edit"
-  patch "edit_transaction_all", to:"transactions#update"
-  delete "destroy_transaction_all", to:"transactions#destroy"
-  delete "delete_document_all", to:"transactions#delete_document"
-  patch "approve_transaction_all", to:"transactions#approval"
-  patch "reject_transaction_all", to:"transactions#rejection"
-  
-  get "personal", to:"personal#index"
-  get "new_ledger", to: "personal#new"
-  post "new_ledger", to:"personal#create"  
-  delete "destroy_ledger", to:"personal#destroy"
-  patch "edit_ledger",  to:"personal#update"
-  get "edit_ledger",  to:"personal#edit"
-  
-  
-  get "show_transactions", to: "personal_transactions#show"
-  post "show_transactions", to:"personal_transactions#show_filter"
-  get "new_transaction", to:"personal_transactions#new"
-  post "new_transaction", to:"personal_transactions#create"
-  get "edit_transaction", to:"personal_transactions#edit"
-  patch "edit_transaction", to:"personal_transactions#update"
-  delete "destroy_transaction", to:"personal_transactions#destroy"
-  delete "delete_document", to:"personal_transactions#delete_document"
-  patch "approve_transaction", to:"personal_transactions#approval" 
-  patch "reject_transaction", to:"personal_transactions#rejection"
+  resources :registrations, only: [:new,:create]
 
-  get "all_records", to:"all_records#show"
-  post "all_records", to:"all_records#show_filter"
+  resources :sessions, only: [:new,:create,:destroy]
+  
+  concern :extra do
+    member do
+      delete :delete_document
+      patch :approval
+      patch :rejection
+    end
+    collection do
+      post :index_filter
+    end
+  end
+
+  resources :ledgers do
+    resources :transactions, concerns: :extra
+  end
 
   
+  resources :personal_ledgers do
+    resources :personal_transactions,concerns: :extra
+  end  
 
-
-
-  root to: "main#index"
+  
+  root to: "ledgers#index"
 end

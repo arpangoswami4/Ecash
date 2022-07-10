@@ -6,7 +6,7 @@
         <h5 class="mb-3">Name: <%= @ledger.name %></h5>
     </div>
     <div>
-        <%=form_tag show_transactions_path(ledger_id:params[:ledger_id]),method: :post do%>
+        <%=form_tag index_filter_personal_ledger_personal_transactions_path(personal_ledger_id:params[:personal_ledger_id]),method: :post do%>
             <div class="mb-3">
             <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
             <%= select_tag :criteria,options_for_select(
@@ -61,30 +61,30 @@
             <% end %>
             <td><%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <% if transaction.determination == nil %>
-            <td><%= link_to "Edit", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
+            <td><%= link_to "Edit", edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
             <% else %>
-            <td><%= link_to "Edit", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info disabled",disabled:true  %></td>
+            <td><%= link_to "Edit", edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info disabled",disabled:true  %></td>
             <% end %>
             <td>
             <% if transaction.updated_by %>
-                <%= transaction.updated_by.to_s == @user.id.to_s ?  "Self" : User.find(transaction.updated_by).name  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%= transaction.updated_by.to_s == @user.id.to_s ?  "Self" : User.find_name(transaction.updated_by)  %>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
             </td>
             <% if transaction.determination %>
-                <td><%= button_to "Delete", destroy_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning disabled", disabled:true %></td>
+                <td><%= button_to "Delete", personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning disabled", disabled:true %></td>
             <% else %>
-                <td><%= button_to "Delete", destroy_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
+                <td><%= button_to "Delete", personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             <% end %>
             <% if transaction.document.attached? %>
                 <td><%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
                 <% if transaction.determination==nil %>          
-                    <%= button_to delete_document_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do%>
+                    <%= button_to delete_document_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do%>
                         Remove <i class="fa fa-trash"></i>
                     <% end %>
                 <% else %>
-                    <%= button_to delete_document_path(transaction_id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center disabled",disabled:true do%>
+                    <%= button_to delete_document_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center disabled",disabled:true do%>
                         Remove <i class="fa fa-trash"></i>
                     <% end %>
                 <%end%>
@@ -92,16 +92,16 @@
             <% else %>
                 <td>
                 <% if transaction.determination==nil %>          
-                    <%= link_to "Upload", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center"%>
+                    <%= link_to "Upload",  edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center"%>
                 <% else %>
-                    <%= link_to "Upload", edit_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center disabled",disabled:true %>
+                    <%= link_to "Upload",  edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center disabled",disabled:true %>
                 <% end %>
                 </td> 
             <% end %>
             <td>
                 <%if transaction.determination == nil  %>
-                    <%= button_to "Approve", approve_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-4 mb-2"%>
-                    <%= button_to "Reject", reject_transaction_path(transaction_id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-5  btn-block"%>
+                    <%= button_to "Approve", approval_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-4 mb-2"%>
+                    <%= button_to "Reject", rejection_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-5  btn-block"%>
                 <%elsif transaction.determination == true %>
                     <%= "Approved" %>
                 <% else %>
@@ -112,7 +112,7 @@
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>
-                    <%=User.find(transaction.determined_by).name %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <%=User.find_name(transaction.determined_by) %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
                 <% end %>
             </td>
             </tr>  
@@ -121,8 +121,8 @@
         <% end %>
         </tbody>
     </table>
-    <%= link_to "New Transaction", new_transaction_path(ledger_id:@ledger.id),class:"btn btn-primary" %>
-    <%= link_to "Back to Ledgers", personal_path,class:"btn btn-primary" %>
+    <%= link_to "New Transaction", new_personal_ledger_personal_transaction_path(personal_ledger_id:@ledger.id),class:"btn btn-primary" %>
+    <%= link_to "Back to Ledgers", personal_ledgers_path,class:"btn btn-primary" %>
     
 
     </div>    

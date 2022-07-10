@@ -1,4 +1,4 @@
-<%= form_with model:@ledger,url: new_ledger_all_path do |form| %>
+<%= form_with model:@ledger,url: ledgers_path do |form| %>
     <% if @ledger.errors.any? %>
         <div class="alert alert-danger">
             <% @ledger.errors.full_messages.each do |m| %>

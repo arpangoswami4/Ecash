@@ -37,17 +37,17 @@
                 <td><%= credit_amount %></td>
                 <td><%= debit_amount %></td>
                 <td><%= net_profit %></td>
-                <td><%= link_to "Expand",show_transactions_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
-                <td><%= ledger.created_by.to_s == @user.id.to_s ?  "Self" : User.find(ledger.created_by).name %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
-                <td><%= link_to "Edit", edit_ledger_path(ledger_id:ledger.id), class:"btn btn-info"%></td>
+                <td><%= link_to "Expand",personal_ledger_personal_transactions_path(personal_ledger_id:ledger.id), class:"btn btn-success"%></td>
+                <td><%= ledger.created_by.to_s == @user.id.to_s ?  "Self" : User.find_name(ledger.created_by) %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
+                <td><%= link_to "Edit", edit_personal_ledger_path(id:ledger.id), class:"btn btn-info"%></td>
                 <td>
                 <% if ledger.updated_by %>
-                <%= ledger.updated_by.to_s == @user.id.to_s ?  "Self" : User.find(ledger.updated_by).name  %>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%= ledger.updated_by.to_s == @user.id.to_s ?  "Self" : User.find_name(ledger.updated_by)  %>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
                 </td>
-                <td><%= button_to "Delete", destroy_ledger_path(ledger_id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
+                <td><%= button_to "Delete", personal_ledger_path(id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
                 </tr>  
             <% i+=1 %>
             <% if @divider+1 == i %>
@@ -56,7 +56,7 @@
             <% end %>
             </tbody>
         </table>
-        <%= link_to "New Ledger", new_ledger_path,class:"btn btn-primary" %>
+        <%= link_to "New Ledger", new_personal_ledger_path,class:"btn btn-primary" %>
         
     </div>
     

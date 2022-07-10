@@ -1,8 +1,8 @@
-class MainController < ApplicationController
+class LedgersController < ApplicationController
     before_action :redirect_index,except: [:index]
     def redirect_index
         unless @logged_in
-            render "main/index"
+            render "ledgers/index"
         end
     end
     def index
@@ -31,13 +31,13 @@ class MainController < ApplicationController
     end
 
     def edit
-        @ledger=Ledger.find(params[:ledger_id])
+        @ledger=Ledger.find(params[:id])
     end
 
     def update
         new_params=ledger_params
         new_params[:updated_by]=@user.id
-        @ledger=Ledger.find(params[:ledger_id])
+        @ledger=Ledger.find(params[:id])
         if @ledger.update(new_params)
             redirect_to root_path,notice:"Name Edited Successfully"
         else
@@ -46,7 +46,7 @@ class MainController < ApplicationController
     end
 
     def destroy
-        Ledger.find(params[:ledger_id]).destroy
+        Ledger.find(params[:id]).destroy
         redirect_to root_path,notice:"Ledger Deleted"
     end
 

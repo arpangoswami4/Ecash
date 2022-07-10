@@ -55,10 +55,10 @@
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td ><%=User.find(transaction.created_by).name%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td ><%=User.find_name(transaction.created_by)%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
             <td >
             <% if transaction.updated_by %>
-                <%=User.find(transaction.updated_by).name%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <%=User.find_name(transaction.updated_by)%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
@@ -85,7 +85,7 @@
                 <% if transaction.determination == nil %>
                     ___
                 <%else%>
-                    <%=User.find(transaction.determined_by).name %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <%=User.find_name(transaction.determined_by) %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
                 <% end %>
             </td>
             </tr>  

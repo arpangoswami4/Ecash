@@ -2,7 +2,7 @@ class ReportController < ApplicationController
     before_action :redirect_index
     def redirect_index
         unless @logged_in
-            render "main/index"
+            render "ledgers/index"
         end
     end
     def report_page
