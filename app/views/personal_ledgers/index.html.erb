@@ -26,8 +26,12 @@
             <% i=1 %>
             <tr class="grouplabel"><th colspan="10">Self Created Ledgers</th></tr>
             <% @ledgers.each do |ledger| %>
-                <%  credit_amount=ledger.transactions.where("created_by=? ",@user.id).where(sign:true).where(determination:[true,nil]).sum(:amount)
-                    debit_amount=ledger.transactions.where("created_by=? ",@user.id).where(sign:false).where(determination:[true,nil]).sum(:amount)
+                <% if @divider+1 == i %>
+                    <tr class="grouplabel"><th colspan="10">Other Ledgers</th></tr>
+                <% end %>
+
+                <%  credit_amount=ledger.transactions.find_created_by(@user.id).calulate_sum(true)
+                    debit_amount=ledger.transactions.find_created_by(@user.id).calulate_sum(false)
                     net_profit =credit_amount-debit_amount
                 %>
 
@@ -50,9 +54,6 @@
                 <td><%= button_to "Delete", personal_ledger_path(id:ledger.id), method: :delete, class:"btn btn-warning"%></td>
                 </tr>  
             <% i+=1 %>
-            <% if @divider+1 == i %>
-                <tr class="grouplabel"><th colspan="10">Other Ledgers</th></tr>
-            <% end %>
             <% end %>
             </tbody>
         </table>

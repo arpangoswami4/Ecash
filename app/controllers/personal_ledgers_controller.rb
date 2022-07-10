@@ -10,7 +10,7 @@ class PersonalLedgersController < ApplicationController
         u_ids=@user.ledgers.ids
         @divider=u_ids.length
         ids+=u_ids
-        Transaction.where("created_by=? ",@user.id).each do |t|
+        Transaction.find_created_by(@user.id).each do |t|
             if ids.exclude? t.ledger_id
                 ids.push t.ledger_id 
             end

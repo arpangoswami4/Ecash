@@ -30,11 +30,9 @@ Rails.application.routes.draw do
     resources :transactions, concerns: :extra
   end
 
-  
   resources :personal_ledgers do
     resources :personal_transactions,concerns: :extra
   end  
-
   
   root to: "ledgers#index"
 end

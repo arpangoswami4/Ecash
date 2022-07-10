@@ -7,7 +7,7 @@ class PersonalTransactionsController < ApplicationController
         end
     end
     def index
-        @transactions=@ledger.transactions.where("created_by=?",@user.id)
+        @transactions=@ledger.transactions.find_created_by(@user.id)
     end
     def index_filter
         parameters={}
@@ -59,12 +59,12 @@ class PersonalTransactionsController < ApplicationController
     end
     def approval
         transaction=Transaction.find(params[:id])
-        transaction.update(determination:true,determined_by:@user.id,determined_at:Time.zone.now)
+        transaction.update(determination:true,updated_by:@user.id,determined_by:@user.id,determined_at:Time.zone.now)
         redirect_to personal_ledger_personal_transactions_path(personal_ledger_id:params[:personal_ledger_id]), notice:"Approval recored successfully"
     end
     def rejection
         transaction=Transaction.find(params[:id])
-        transaction.update(determination:false,determined_by:@user.id,determined_at:Time.zone.now)
+        transaction.update(determination:false,updated_by:@user.id,determined_by:@user.id,determined_at:Time.zone.now)
         redirect_to personal_ledger_personal_transactions_path(personal_ledger_id:params[:personal_ledger_id]), notice:"Rejection recored successfully"
     end
     private

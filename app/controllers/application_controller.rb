@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
         else
             @user=nil
             @logged_in=false
+
         end
     end
 end
