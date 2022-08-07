@@ -2,7 +2,7 @@
 
 class TransactionsController < ApplicationController
   before_action :set_ledger, only: %i[index create index_filter]
-  
+
   def index
     @transactions = @ledger.transactions.all
   end
@@ -10,7 +10,7 @@ class TransactionsController < ApplicationController
   def all_records
     @transactions = Transaction.all
   end
-  
+
   def all_records_filter
     parameters = {}
     parameters[:criteria] = params[:criteria][1..-2].split(',')

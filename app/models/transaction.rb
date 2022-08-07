@@ -5,7 +5,7 @@ class Transaction < ApplicationRecord
   belongs_to :ledger
   validates :amount, presence: true
   validates :sign, exclusion: [nil]
-  enum status: [:undetermined,:approved,:rejected]
+  enum status: %i[undetermined approved rejected]
 
   scope :find_created_by, ->(arg) { where('created_by= ? ', arg) }
   scope :filter_by_date, lambda { |arg|
@@ -15,7 +15,7 @@ class Transaction < ApplicationRecord
   scope :filter_by_date_and_ledger_and_user, lambda { |arg, arg1, arg2|
                                                find_created_by(arg2).filter_by_date_and_ledger(arg, arg1)
                                              }
-  scope :calulate_sum, ->(arg) { where(sign: arg).where(status: [:approved, :undetermined]).sum(:amount) }
+  scope :calulate_sum, ->(arg) { where(sign: arg).where(status: %i[approved undetermined]).sum(:amount) }
   scope :report_sum, lambda { |arg, arg1|
                        where('EXTRACT(Year from created_at) = ?', arg1[:year]).where('EXTRACT(Month from created_at) = ?', arg1[:month]).calulate_sum(arg)
                      }

@@ -6,15 +6,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get 'about', to: 'about#index'
+  get 'about', to: 'ledgers#about'
 
-  
   get 'report', to: 'report#report_page'
   post 'report', to: 'report#report_generate'
 
-  
-
-  resources :users,only: %i[new create] do
+  resources :users, only: %i[new create] do
     member do
       delete :logout
     end
@@ -37,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :ledgers do
     collection do
-      get :all_records,controller: :transactions
+      get :all_records, controller: :transactions
       post :all_records_filter, controller: :transactions
     end
     resources :transactions, concerns: :extra

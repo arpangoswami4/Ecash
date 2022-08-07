@@ -10,21 +10,17 @@ class User < ApplicationRecord
   has_secure_password
 
   def delete_references
-    
-=begin
-    Transaction.each do |t|
-      if t.determined_by == self.id || t.updated_by == self.id
-        t.destroy
-      end
-    end
-    Ledger.each do |l|
-      if l.updated_by == self.id
-        l.destroy
-      end
-    end
-=end
+    #     Transaction.each do |t|
+    #       if t.determined_by == self.id || t.updated_by == self.id
+    #         t.destroy
+    #       end
+    #     end
+    #     Ledger.each do |l|
+    #       if l.updated_by == self.id
+    #         l.destroy
+    #       end
+    #     end
   end
-
 
   scope :find_name, ->(arg) { find(arg).name }
 end

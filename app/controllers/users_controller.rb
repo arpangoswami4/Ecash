@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   skip_before_action :is_user_logged_in?
   def new
     @user = User.new
   end
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -12,6 +15,7 @@ class UsersController < ApplicationController
       render :new
     end
   end
+
   def login; end
 
   def authenticate
