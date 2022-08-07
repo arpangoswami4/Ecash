@@ -1,6 +1,6 @@
 <div class="center-pos">
     <h1 >Log In</h1>
-     <%= form_with url: sessions_path do |form| %>
+     <%= form_with url: authenticate_users_path do |form| %>
         <div class="mb-3">
             <%= form.label :email %>
             <%= form.text_field :email, class:"form-control",required: true %>

@@ -7,6 +7,17 @@ class TransactionsController < ApplicationController
     @transactions = @ledger.transactions.all
   end
 
+  def all_records
+    @transactions = Transaction.all
+  end
+  
+  def all_records_filter
+    parameters = {}
+    parameters[:criteria] = params[:criteria][1..-2].split(',')
+    @transactions = Transaction.filter_by_date(parameters)
+    render :all_records, locals: { criteria: params[:criteria] }
+  end
+
   def index_filter
     parameters = {}
     parameters[:criteria] = params[:criteria][1..-2].split(',')

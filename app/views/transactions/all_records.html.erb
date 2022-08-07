@@ -3,7 +3,7 @@
         <h1 class="mb-3">All Transactions</h1>
     </div>
     <div>
-        <%=form_tag all_records_path,method: :post do%>
+        <%=form_tag all_records_filter_ledgers_path,method: :post do%>
             <div class="mb-3">
             <%= label_tag :criteria,"Transaction Filter",class:"d-flex flex-column align-items-center justify-content-center" %>
             <%= select_tag :criteria,options_for_select(

@@ -14,7 +14,7 @@
         <%= link_to "Personal Ledger", personal_ledgers_path,class:"nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "All Transactions", all_records_path,class:"nav-link" %>
+        <%= link_to "All Transactions",all_records_ledgers_path,class:"nav-link" %>
       </li>
       <li class="nav-item">
         <%= link_to 'Report', report_path ,class:"nav-link" %>
@@ -31,15 +31,15 @@
             <%= @user.name %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= button_to 'Log-out', session_path(id:@user.id) ,method: :delete,class:"dropdown-item" %>
+            <%= button_to 'Log-out', logout_user_path(id:@user.id) ,method: :delete,class:"dropdown-item" %>
           </div>
         </li>
       <% else %>
       <li class="nav-item mx-2">
-        <%= link_to "Sign Up",new_registration_path ,class:"btn btn-primary col" %>
+        <%= link_to "Sign Up",new_user_path ,class:"btn btn-primary col" %>
       </li>
       <li class="nav-item mx-2">
-        <%= link_to "Log In",new_session_path ,class:"btn btn-primary col" %>
+        <%= link_to "Log In",login_users_path ,class:"btn btn-primary col" %>
       </li>
     <% end %> 
     </ul>   

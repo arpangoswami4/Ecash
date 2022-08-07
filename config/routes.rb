@@ -1,21 +1,28 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'user/resource'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
   get 'about', to: 'about#index'
 
-  get 'all_records', to: 'all_records#index'
-  post 'all_records', to: 'all_records#index_filter'
-
+  
   get 'report', to: 'report#report_page'
   post 'report', to: 'report#report_generate'
 
-  resources :registrations, only: %i[new create]
+  
 
-  resources :sessions, only: %i[new create destroy]
+  resources :users,only: %i[new create] do
+    member do
+      delete :logout
+    end
+    collection do
+      get :login
+      post :authenticate
+    end
+  end
 
   concern :extra do
     member do
@@ -29,11 +36,11 @@ Rails.application.routes.draw do
   end
 
   resources :ledgers do
+    collection do
+      get :all_records,controller: :transactions
+      post :all_records_filter, controller: :transactions
+    end
     resources :transactions, concerns: :extra
-  end
-
-  resources :personal_ledgers do
-    resources :personal_transactions, concerns: :extra
   end
 
   root to: 'ledgers#index'
