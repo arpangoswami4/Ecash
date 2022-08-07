@@ -44,7 +44,7 @@
         <tbody>
         <% i=1 %>
         <% @transactions.each do |transaction| %>
-            <% if transaction.determination == false %>
+            <% if transaction.status == "rejected" %>
                 <tr class="bg-secondary">
             <% elsif transaction.sign %>
                 <tr class="bg-success text-white">
@@ -60,7 +60,7 @@
                 <td><%= "Debit" %></td>
             <% end %>
             <td><%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
-            <% if transaction.determination == nil %>
+            <% if transaction.status == "undetermined" %>
             <td><%= link_to "Edit", edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
             <% else %>
             <td><%= link_to "Edit", edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info disabled",disabled:true  %></td>
@@ -72,14 +72,14 @@
                     ___
                 <% end %>
             </td>
-            <% if transaction.determination %>
+            <% if transaction.status == "approved" %>
                 <td><%= button_to "Delete", personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning disabled", disabled:true %></td>
             <% else %>
                 <td><%= button_to "Delete", personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             <% end %>
             <% if transaction.document.attached? %>
                 <td><%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
-                <% if transaction.determination==nil %>          
+                <% if transaction.status == "undetermined" %>          
                     <%= button_to delete_document_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do%>
                         Remove <i class="fa fa-trash"></i>
                     <% end %>
@@ -91,7 +91,7 @@
                 </td>
             <% else %>
                 <td>
-                <% if transaction.determination==nil %>          
+                <% if transaction.status == "undetermined" %>          
                     <%= link_to "Upload",  edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center"%>
                 <% else %>
                     <%= link_to "Upload",  edit_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center disabled",disabled:true %>
@@ -99,17 +99,17 @@
                 </td> 
             <% end %>
             <td>
-                <%if transaction.determination == nil  %>
+                <%if transaction.status == "undetermined"  %>
                     <%= button_to "Approve", approval_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-4 mb-2"%>
                     <%= button_to "Reject", rejection_personal_ledger_personal_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-5  btn-block"%>
-                <%elsif transaction.determination == true %>
+                <%elsif transaction.status == "approved" %>
                     <%= "Approved" %>
                 <% else %>
                     <%= "Rejected" %>
                 <% end %>
             </td>
             <td>
-                <% if transaction.determination == nil %>
+                <% if transaction.status == "undetermined" %>
                     ___
                 <%else%>
                     <%=User.find_name(transaction.determined_by) %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>

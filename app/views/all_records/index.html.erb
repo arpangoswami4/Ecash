@@ -39,7 +39,7 @@
         <tbody>
         <% i=1 %>
         <% @transactions.each do |transaction| %>
-            <% if transaction.determination == false %>
+            <% if transaction.status == "rejected" %>
                 <tr class="bg-secondary">
             <% elsif transaction.sign %>
                 <tr class="bg-success text-white">
@@ -73,16 +73,16 @@
             </td>
             <% end %>
             <td >
-                <%if transaction.determination == nil  %>
+                <%if transaction.status == "undetermined"  %>
                     <%="Not Determined"%>
-                <%elsif transaction.determination == true %>
+                <%elsif transaction.status == "approved" %>
                     <%= "Approved" %>
                 <% else %>
                     <%= "Rejected" %>
                 <% end %>
             </td>
             <td >
-                <% if transaction.determination == nil %>
+                <% if transaction.status == "undetermined" %>
                     ___
                 <%else%>
                     <%=User.find_name(transaction.determined_by) %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>

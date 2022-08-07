@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToTransactions < ActiveRecord::Migration[7.0]
   def change
     add_column :transactions, :created_by, :string

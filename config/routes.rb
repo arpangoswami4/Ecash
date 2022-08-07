@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  
+
   # Defines the root path route ("/")
   # root "articles#index"
-  get "about", to: "about#index"
+  get 'about', to: 'about#index'
 
-  get "all_records", to:"all_records#index"
-  post "all_records", to:"all_records#index_filter"
+  get 'all_records', to: 'all_records#index'
+  post 'all_records', to: 'all_records#index_filter'
 
-  get "report", to:"report#report_page"
-  post "report", to: "report#report_generate"
+  get 'report', to: 'report#report_page'
+  post 'report', to: 'report#report_generate'
 
-  resources :registrations, only: [:new,:create]
+  resources :registrations, only: %i[new create]
 
-  resources :sessions, only: [:new,:create,:destroy]
-  
+  resources :sessions, only: %i[new create destroy]
+
   concern :extra do
     member do
       delete :delete_document
@@ -31,8 +33,8 @@ Rails.application.routes.draw do
   end
 
   resources :personal_ledgers do
-    resources :personal_transactions,concerns: :extra
-  end  
-  
-  root to: "ledgers#index"
+    resources :personal_transactions, concerns: :extra
+  end
+
+  root to: 'ledgers#index'
 end
