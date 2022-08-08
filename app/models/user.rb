@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   has_many :ledgers, dependent: :destroy
-  has_many :transactions, through: :ledgers, dependent: :destroy
+  has_many :transactions, foreign_key: :created_by, dependent: :destroy
 
   has_secure_password
 
