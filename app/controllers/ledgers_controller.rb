@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class LedgersController < ApplicationController
-  skip_before_action :is_user_logged_in?, only: [:index,:about]
+  skip_before_action :is_user_logged_in?, only: %i[index about]
 
   def index
     @ledgers = Ledger.all if @user
   end
+
   def about; end
 
   def new

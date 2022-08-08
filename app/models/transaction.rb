@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
-  has_one_attached :document
+  enum status: %i[undetermined approved rejected]
+
+  has_one_attached :document, dependent: :destroy
   belongs_to :ledger
+
   validates :amount, presence: true
   validates :sign, exclusion: [nil]
-  enum status: %i[undetermined approved rejected]
 
   scope :find_created_by, ->(arg) { where('created_by= ? ', arg) }
   scope :filter_by_date, lambda { |arg|

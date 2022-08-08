@@ -43,7 +43,12 @@
             <td><%= link_to "Edit", edit_ledger_path(ledger.id), class:"btn btn-info"%></td>
             <td>
             <% if ledger.updated_by %>
-                <%=User.find_name(ledger.updated_by)%>  <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <% if User.where(id:ledger.updated_by).empty? %>
+                    <%= "User Deleted" %>
+                <% else %>
+                    <%=User.find_name(ledger.updated_by)%>
+                <% end %>
+                <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>

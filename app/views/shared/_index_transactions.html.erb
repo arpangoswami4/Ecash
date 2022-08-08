@@ -42,7 +42,12 @@
             <% end %>
             <td>
             <% if transaction.updated_by %>
-                <%=User.find_name(transaction.updated_by)%>  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <% if User.where(id:transaction.updated_by).empty? %>
+                    <%= "User Deleted" %>
+                <% else %>
+                    <%=User.find_name(transaction.updated_by)%>
+                <% end %>
+                  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
                 <%else%>
                     ___
                 <% end %>
@@ -88,7 +93,13 @@
                 <% if transaction.status == "undetermined" %>
                     ___
                 <%else%>
-                    <%=User.find_name(transaction.determined_by) %>  <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <% if User.where(id:transaction.determined_by).empty? %>
+                        <%= "User Deleted" %>
+                    <% else %>
+                        <%=User.find_name(transaction.determined_by)%>
+                    <% end %>
+
+                    <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
                 <% end %>
             </td>
             </tr>  
