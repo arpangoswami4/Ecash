@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class LedgersController < ApplicationController
-  
-
   def index
     @ledgers = Ledger.all if @user
   end
