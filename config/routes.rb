@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get 'about', to: 'ledgers#about'
+  get 'about', to: 'dashboard#about'
 
   get 'report', to: 'report#report_page'
   post 'report', to: 'report#report_generate'
@@ -39,5 +39,5 @@ Rails.application.routes.draw do
     resources :transactions, concerns: :extra
   end
 
-  root to: 'ledgers#index'
+  root to: 'dashboard#index'
 end

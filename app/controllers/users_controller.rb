@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: 'Registered Successfully'
+      redirect_to ledgers_path, notice: 'Registered Successfully'
     else
       render :new
     end
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     user = User.find_by(email: params[:email])
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'Logged in Sucessfully'
+      redirect_to ledgers_path, notice: 'Logged in Sucessfully'
     else
       flash[:alert] = 'Invalid email or password'
       render :new

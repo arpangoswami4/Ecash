@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LedgersController < ApplicationController
-  skip_before_action :is_user_logged_in?, only: %i[index about]
+  
 
   def index
     @ledgers = Ledger.all if @user
@@ -18,7 +18,7 @@ class LedgersController < ApplicationController
     new_params[:created_by] = @user.id
     @ledger = @user.ledgers.create(new_params)
     if @ledger.save
-      redirect_to root_path, notice: 'Name Saved Successfully'
+      redirect_to ledgers_path, notice: 'Name Saved Successfully'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class LedgersController < ApplicationController
     new_params[:updated_by] = @user.id
     @ledger = Ledger.find(params[:id])
     if @ledger.update(new_params)
-      redirect_to root_path, notice: 'Name Edited Successfully'
+      redirect_to ledgers_path, notice: 'Name Edited Successfully'
     else
       render :new
     end
@@ -41,7 +41,7 @@ class LedgersController < ApplicationController
 
   def destroy
     Ledger.find(params[:id]).destroy
-    redirect_to root_path, notice: 'Ledger Deleted'
+    redirect_to ledgers_path, notice: 'Ledger Deleted'
   end
 
   private
