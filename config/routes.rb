@@ -39,5 +39,9 @@ Rails.application.routes.draw do
     resources :transactions, concerns: :extra
   end
 
+  constraints ->(req) { req.session[:user_id].present? } do
+    root to: 'ledgers#index', as: :authenicated_root
+  end
+
   root to: 'dashboard#index'
 end
