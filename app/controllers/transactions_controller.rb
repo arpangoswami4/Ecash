@@ -37,7 +37,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       redirect_to ledger_transactions_path(ledger_id: params[:ledger_id]), notice: 'Transaction Saved Successfully'
     else
-      render :new
+      render :new, locals: { ledger_id: @ledger.id }, alert: 'Transaction Not Saved'
     end
   end
 
@@ -52,7 +52,7 @@ class TransactionsController < ApplicationController
     if @transaction.update(new_params)
       redirect_to ledger_transactions_path(ledger_id: params[:ledger_id]), notice: 'Transaction Successfully Edited'
     else
-      render :new
+      render :edit, locals: { id: params[:id], ledger_id: params[:ledger_id] }, alert: 'Transaction Not Edited'
     end
   end
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ReportController < ApplicationController
-  
   def report_page
     @generated = false
   end

@@ -24,8 +24,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to ledgers_path, notice: 'Logged in Sucessfully'
     else
-      flash[:alert] = 'Invalid email or password'
-      render :new
+      redirect_to login_users_path, alert: 'Invalid email or password'
     end
   end
 

@@ -3,7 +3,7 @@
      <%= form_with url: authenticate_users_path do |form| %>
         <div class="mb-3">
             <%= form.label :email %>
-            <%= form.text_field :email, class:"form-control",required: true %>
+            <%= form.email_field :email, class:"form-control",required: true %>
         </div>
         <div class="mb-3">
             <%= form.label :password %>

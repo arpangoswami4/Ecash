@@ -18,7 +18,7 @@ class LedgersController < ApplicationController
     if @ledger.save
       redirect_to ledgers_path, notice: 'Name Saved Successfully'
     else
-      render :new
+      render :new, alert: 'Name not Saved'
     end
   end
 
@@ -33,7 +33,7 @@ class LedgersController < ApplicationController
     if @ledger.update(new_params)
       redirect_to ledgers_path, notice: 'Name Edited Successfully'
     else
-      render :new
+      render :edit, locals: { id: params[:id] }, alert: 'Name not Edited'
     end
   end
 
