@@ -1,7 +1,7 @@
 <div class="d-flex flex-column align-items-center justify-content-center">
     <h1>Edit Transaction</h1>
     <div>
-        <%= form_with model:@transaction,url: ledger_transaction_path(ledger_id:params[:ledger_id],id:params[:id]),method: :patch do |form| %>
+        <%= form_with model:@transaction, url: ledger_transaction_path(ledger_id:params[:ledger_id],id:params[:id]), method: :patch do |form| %>
             <% if @transaction.errors.any? %>
                 <div class="alert alert-danger">
                     <% @transaction.errors.full_messages.each do |m| %>
@@ -21,12 +21,12 @@
             <h6><strong>Transaction Type</strong></h6>
             </div>
             <div class="mb-3 pad2">
-                <%= form.radio_button :sign,true, class:"form-check-input" %>
-                <%= form.label :sign_true,"Credit" ,class:"form-check-label" %>
+                <%= form.radio_button :sign, true, class:"form-check-input" %>
+                <%= form.label :sign_true, "Credit", class:"form-check-label" %>
             </div>
             <div class="mb-3 pad2">
-                <%= form.radio_button :sign,false, class:"form-check-input" %>
-                <%= form.label :sign_false,"Debit",class:"form-check-label" %>
+                <%= form.radio_button :sign, false, class:"form-check-input" %>
+                <%= form.label :sign_false, "Debit", class:"form-check-label" %>
             </div>
             <div class="mb-3 wid-set">
                 <div class="text-center">
@@ -34,10 +34,10 @@
                 </div>
                 <div class="mb-3 d-flex align-items-center justify-content-center">
                 <% if @transaction.document.attached? %>
-                    <%=link_to 'Previous Document', url_for(@transaction.document),class:"btn btn-secondary bc-1",target: :blank%>
+                    <%=link_to 'Previous Document', url_for(@transaction.document), class:"btn btn-secondary bc-1", target: :blank%>
                 <%end%>
                 </div>
-                <%= form.file_field :document,accept: "image/*,application/pdf",class:"form-control"%>
+                <%= form.file_field :document, accept: "image/*,application/pdf", class:"form-control"%>
                 
             </div>
 
@@ -47,5 +47,5 @@
         <% end %>
 
     </div>
-    <%= link_to "Back to Transaction", ledger_transactions_path(ledger_id:params[:ledger_id]),class:"btn btn-primary" %>
+    <%= link_to "Back to Transaction", ledger_transactions_path(ledger_id:params[:ledger_id]), class:"btn btn-primary" %>
 </div>
