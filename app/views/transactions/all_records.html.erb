@@ -47,41 +47,41 @@
                 <tr class="bg-danger text-white">
             <% end %>
             <th scope="row"><%= i %></th>
-            <td><%=Ledger.find_name(transaction.ledger_id) %></td>
-            <td><%=transaction.amount%></td>
-            <td><%=transaction.description!="" ? transaction.description : "___"%></td>
+            <td><%= Ledger.find_name(transaction.ledger_id) %></td>
+            <td><%= transaction.amount%></td>
+            <td><%= transaction.description!="" ? transaction.description : "___" %></td>
             <% if transaction.sign %>
                 <td><%= "Credit" %></td>
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td ><%=User.find_name(transaction.created_by)%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td ><%= User.find_name(transaction.created_by) %><br> <%= transaction.created_at.strftime("%H:%M, %d %B %Y") %></td>
             <td >
             <% if transaction.updated_by %>
                 <% if User.where(id:transaction.updated_by).empty? %>
                     <%= "User Deleted" %>
                 <% else %>
-                    <%=User.find_name(transaction.updated_by)%>
+                    <%= User.find_name(transaction.updated_by) %>
                 <% end %>
 
-                <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                <br>  <%= transaction.updated_at.strftime("%H:%M, %d %B %Y") %>
                 <%else%>
                     ___
                 <% end %>
             </td>
             <% if transaction.document.attached? %>
                 <td>
-                    <%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
+                    <%= link_to 'View', url_for(transaction.document), class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center", target: :blank %>
                 </td>
             <% else %>
             <td >
-                <%="___"%>
+                <%= "___" %>
             </td>
             <% end %>
             <td >
-                <%if transaction.status == "undetermined"  %>
+                <% if transaction.status == "undetermined" %>
                     <%="Not Determined"%>
-                <%elsif transaction.status == "approved" %>
+                <% elsif transaction.status == "approved" %>
                     <%= "Approved" %>
                 <% else %>
                     <%= "Rejected" %>
@@ -94,9 +94,9 @@
                     <% if User.where(id:transaction.determined_by).empty? %>
                         <%= "User Deleted" %>
                     <% else %>
-                        <%=User.find_name(transaction.determined_by)%>
+                        <%= User.find_name(transaction.determined_by) %>
                     <% end %>
-                    <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <br>  <%= transaction.determined_at.strftime("%H:%M, %d %B %Y") %>
                 <% end %>
             </td>
             </tr>  

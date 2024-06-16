@@ -1,14 +1,14 @@
 <div class="d-flex flex-column align-items-center justify-content-center">
     <h1>Expense Report</h1>
     <div>
-    <%= form_tag report_path,method: :post do%>
+    <%= form_tag report_path, method: :post do %>
         <div class="my-3">
-            <%= label_tag :month,"Specify Month" %>
-            <%= select_tag :month,options_for_select([["This Month",Time.now.month]]+(1..12).map{|m| [ Date::MONTHNAMES[m] ,m ]},selected:params[:month]),class:"custom-select" %>
+            <%= label_tag :month, "Specify Month" %>
+            <%= select_tag :month, options_for_select([["This Month",Time.now.month]]+(1..12).map{|m| [ Date::MONTHNAMES[m] ,m ]}, selected:params[:month]), class:"custom-select" %>
         </div>
         <div class="mb-3">
-            <%= label_tag :year,"Specify Year" %>
-            <%= select_tag :year,options_for_select([["This Year",Time.zone.now.year]]+(2000..Time.zone.now.year).to_a,selected:params[:year]),class:"custom-select" %>
+            <%= label_tag :year, "Specify Year" %>
+            <%= select_tag :year, options_for_select([["This Year",Time.zone.now.year]]+(2000..Time.zone.now.year).to_a, selected:params[:year]), class:"custom-select" %>
         </div>
         
         <div class="mb-3 d-flex align-items-center justify-content-center">
@@ -22,13 +22,13 @@
                 <h6><strong>Personal Report</strong></h6>
             </div>
                 <div class="mb-3">
-                    <%="Credited: #{@credited}" %>
+                    <%= "Credited: #{@credited}" %>
                 </div>
                 <div class="mb-3">
-                    <%="Debited: #{@debited}" %>
+                    <%= "Debited: #{@debited}" %>
                 </div>
                 <div class="mb-3">
-                    <%="Net Profit: #{@credited-@debited}" %>
+                    <%= "Net Profit: #{@credited-@debited}" %>
                 </div>
 
             </div>
@@ -37,15 +37,14 @@
                 <h6><strong>Total Report</strong></h6>
             </div>
                 <div class="mb-3">
-                    <%="Credited: #{@credited_all}" %>
+                    <%= "Credited: #{@credited_all}" %>
                 </div>
                 <div class="mb-3">
-                    <%="Debited: #{@debited_all}" %>
+                    <%= "Debited: #{@debited_all}" %>
                 </div>
                 <div class="mb-3">
-                    <%="Net Profit: #{@credited_all-@debited_all}" %>
+                    <%= "Net Profit: #{@credited_all-@debited_all}" %>
                 </div>
-
             </div>
         <%end%>
     </div>

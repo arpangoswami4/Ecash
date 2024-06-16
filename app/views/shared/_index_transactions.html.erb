@@ -27,27 +27,27 @@
                 <tr class="bg-danger text-white">
             <% end %>
             <th scope="row"><%= i %></th>
-            <td><%=transaction.amount%></td>
-            <td><%=transaction.description!="" ? transaction.description : "___"%></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.description!="" ? transaction.description : "___" %></td>
             <% if transaction.sign %>
                 <td><%= "Credit" %></td>
             <% else %>
                 <td><%= "Debit" %></td>
             <% end %>
-            <td><%=User.find_name(transaction.created_by)%><br> <%=transaction.created_at.strftime("%H:%M, %d %B %Y")%></td>
+            <td><%= User.find_name(transaction.created_by) %><br> <%= transaction.created_at.strftime("%H:%M, %d %B %Y") %></td>
             <% if transaction.status == "undetermined" %>
-            <td><%= link_to "Edit", edit_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info"%></td>
+            <td><%= link_to "Edit", edit_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), class:"btn btn-info"%></td>
             <% else %>
-            <td><%= link_to "Edit", edit_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info disabled",disabled:true  %></td>
+            <td><%= link_to "Edit", edit_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), class:"btn btn-info disabled", disabled:true  %></td>
             <% end %>
             <td>
             <% if transaction.updated_by %>
                 <% if User.where(id:transaction.updated_by).empty? %>
                     <%= "User Deleted" %>
                 <% else %>
-                    <%=User.find_name(transaction.updated_by)%>
+                    <%= User.find_name(transaction.updated_by) %>
                 <% end %>
-                  <br>  <%=transaction.updated_at.strftime("%H:%M, %d %B %Y")%>
+                  <br>  <%= transaction.updated_at.strftime("%H:%M, %d %B %Y") %>
                 <%else%>
                     ___
                 <% end %>
@@ -58,13 +58,13 @@
                 <td><%= button_to "Delete", ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete, class:"btn btn-warning"%></td>
             <% end %>
             <% if transaction.document.attached? %>
-                <td><%=link_to 'View', url_for(transaction.document),class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center",target: :blank%>
+                <td><%= link_to 'View', url_for(transaction.document), class:"btn btn-primary mb-2 bc-1 d-flex justify-content-center align-items-center", target: :blank %>
                 <% if transaction.status == "undetermined" %>          
-                    <%= button_to delete_document_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do%>
+                    <%= button_to delete_document_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), method: :delete, class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center" do %>
                         Remove <i class="fa fa-trash"></i>
                     <% end %>
                 <% else %>
-                    <%= button_to delete_document_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), method: :delete,class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center disabled",disabled:true do%>
+                    <%= button_to delete_document_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), method: :delete, class:"btn btn-warning  bc-2 d-flex justify-content-center align-items-center disabled", disabled:true do %>
                         Remove <i class="fa fa-trash"></i>
                     <% end %>
                 <%end%>
@@ -73,16 +73,16 @@
             <% else %>
             <td>
                 <% if transaction.status == "undetermined" %>          
-                    <%= link_to "Upload", edit_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center"%>
+                    <%= link_to "Upload", edit_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center" %>
                 <% else %>
-                    <%= link_to "Upload", edit_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center disabled",disabled:true %>
+                    <%= link_to "Upload", edit_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), class:"btn btn-info d-flex justify-content-center align-items-center disabled", disabled:true %>
                 <% end %>
             <% end %>
             </td>
             <td>
                 <%if transaction.status == "undetermined"  %>
-                    <%= button_to "Approve", approval_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-4 mb-2"%>
-                    <%= button_to "Reject", rejection_ledger_transaction_path(id:transaction.id,ledger_id:@ledger.id),method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-5  btn-block"%>
+                    <%= button_to "Approve", approval_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-4 mb-2" %>
+                    <%= button_to "Reject", rejection_ledger_transaction_path(id:transaction.id, ledger_id:@ledger.id), method: :patch, class:"btn btn-info d-flex justify-content-center align-items-center bc-5  btn-block" %>
                 <%elsif transaction.status == "approved" %>
                     <%= "Approved" %>
                 <% else %>
@@ -96,10 +96,10 @@
                     <% if User.where(id:transaction.determined_by).empty? %>
                         <%= "User Deleted" %>
                     <% else %>
-                        <%=User.find_name(transaction.determined_by)%>
+                        <%= User.find_name(transaction.determined_by) %>
                     <% end %>
 
-                    <br>  <%=transaction.determined_at.strftime("%H:%M, %d %B %Y")%>
+                    <br>  <%= transaction.determined_at.strftime("%H:%M, %d %B %Y") %>
                 <% end %>
             </td>
             </tr>  
@@ -107,7 +107,7 @@
         <% end %>
         </tbody>
     </table>
-    <%= link_to "New Transaction", new_ledger_transaction_path(ledger_id:@ledger.id),class:"btn btn-primary" %>
-    <%= link_to "Back to Ledgers",  ledgers_path,class:"btn btn-primary" %>
+    <%= link_to "New Transaction", new_ledger_transaction_path(ledger_id:@ledger.id), class:"btn btn-primary" %>
+    <%= link_to "Back to Ledgers", ledgers_path, class:"btn btn-primary" %>
     
 </div>

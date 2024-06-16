@@ -25,9 +25,9 @@
             <tbody>
             <% i=1 %>
             <% @ledgers.each do |ledger| %>
-                <%  credit_amount=ledger.transactions.calulate_sum(true)
-                    debit_amount=ledger.transactions.calulate_sum(false)
-                    net_profit =credit_amount-debit_amount
+                <%  credit_amount = ledger.transactions.calulate_sum(true)
+                    debit_amount = ledger.transactions.calulate_sum(false)
+                    net_profit = credit_amount-debit_amount
                 %>
 
                 <tr>
@@ -36,17 +36,17 @@
                 <td><%= credit_amount %></td>
                 <td><%= debit_amount %></td>
                 <td><%= net_profit %></td>
-                <td><%= link_to "Expand",ledger_transactions_path(ledger_id:ledger.id), class:"btn btn-success"%></td>
-                <td><%= User.find_name(ledger.created_by) %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y")%></td>
-                <td><%= link_to "Edit", edit_ledger_path(ledger.id), class:"btn btn-info"%></td>
+                <td><%= link_to "Expand",ledger_transactions_path(ledger_id:ledger.id), class:"btn btn-success" %></td>
+                <td><%= User.find_name(ledger.created_by) %><br><%=ledger.created_at.strftime("%H:%M, %d %B %Y") %></td>
+                <td><%= link_to "Edit", edit_ledger_path(ledger.id), class:"btn btn-info" %></td>
                 <td>
                 <% if ledger.updated_by %>
                     <% if User.where(id:ledger.updated_by).empty? %>
                         <%= "User Deleted" %>
                     <% else %>
-                        <%=User.find_name(ledger.updated_by)%>
+                        <%= User.find_name(ledger.updated_by) %>
                     <% end %>
-                    <br>  <%=ledger.updated_at.strftime("%H:%M, %d %B %Y")%>
+                    <br>  <%=  ledger.updated_at.strftime("%H:%M, %d %B %Y") %>
                     <%else%>
                         ___
                     <% end %>
@@ -57,7 +57,7 @@
             <% end %>
             </tbody>
         </table>
-        <%= link_to "New Ledger", new_ledger_path,class:"btn btn-primary" %>
+        <%= link_to "New Ledger", new_ledger_path, class:"btn btn-primary" %>
         
     </div>
     

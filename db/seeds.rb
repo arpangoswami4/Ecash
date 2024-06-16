@@ -6,3 +6,9 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+(10..15).each do |i|
+  Ledger.create(name: "Person #{i}", created_by: 1, user_id: 1)
+end
+

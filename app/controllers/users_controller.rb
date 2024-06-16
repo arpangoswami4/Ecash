@@ -12,6 +12,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to ledgers_path, notice: 'Registered Successfully'
     else
+      flash.now[:alert] = "User not registered"
       render :new
     end
   end
