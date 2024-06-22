@@ -3,6 +3,8 @@
 class TransactionsController < ApplicationController
   before_action :set_ledger, only: %i[index create index_filter]
 
+  #after_action :show_response, only: %i[edit]
+
   def index
     @transactions = @ledger.transactions.all
   end
@@ -72,15 +74,13 @@ class TransactionsController < ApplicationController
 
   def approval
     transaction = Transaction.find(params[:id])
-    transaction.update(status: :approved, updated_by: @user.id, determined_by: @user.id,
-                       determined_at: Time.zone.now)
+    transaction.update(status: :approved, updated_by: @user.id, determined_by: @user.id)
     redirect_to ledger_transactions_path(ledger_id: params[:ledger_id]), notice: 'Approval recored successfully'
   end
 
   def rejection
     transaction = Transaction.find(params[:id])
-    transaction.update(status: :rejected, updated_by: @user.id, determined_by: @user.id,
-                       determined_at: Time.zone.now)
+    transaction.update(status: :rejected, updated_by: @user.id, determined_by: @user.id)
     redirect_to ledger_transactions_path(ledger_id: params[:ledger_id]), notice: 'Rejection recored successfully'
   end
 
@@ -93,4 +93,8 @@ class TransactionsController < ApplicationController
   def transaction_params
     params.require(:transaction).permit(:amount, :sign, :description, :document)
   end
+
+  # def show_response
+  #   binding.pry
+  # end
 end

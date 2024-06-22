@@ -3,6 +3,8 @@
 class Transaction < ApplicationRecord
   enum status: %i[undetermined approved rejected]
 
+  before_update :set_determination_time
+
   has_one_attached :document, dependent: :destroy
   belongs_to :ledger
 
@@ -24,4 +26,9 @@ class Transaction < ApplicationRecord
   scope :report_sum_by_user, lambda { |arg, arg1, arg2|
                                find_created_by(arg2).where('EXTRACT(Year from created_at) = ?', arg1[:year]).where('EXTRACT(Month from created_at) = ?', arg1[:month]).calulate_sum(arg)
                              }
+  private
+
+  def set_determination_time
+    self.determined_at = Time.zone.now if determined_by.present?
+  end
 end
