@@ -6,7 +6,7 @@ class Transaction < ApplicationRecord
   before_update :set_determination_time
 
   has_one_attached :document, dependent: :destroy
-  belongs_to :ledger
+  belongs_to :ledger, touch: true
 
   validates :amount, presence: true
   validates :sign, exclusion: [nil]
