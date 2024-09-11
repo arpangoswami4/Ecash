@@ -6,17 +6,17 @@
         <h5 class="mb-3">Name: <%= @ledger.name %></h5>
     </div>
     <div>
-        <%= form_tag index_filter_ledger_transactions_path(ledger_id:params[:ledger_id]), method: :post do %>
+        <%= form_tag index_filter_ledger_transactions_path(ledger_id:params[:ledger_id]), method: :get do %>
             <div class="mb-3">
             <%= label_tag :criteria, "Transaction Filter", class:"d-flex flex-column align-items-center justify-content-center" %>
             <%= select_tag :criteria, options_for_select(
             [
-            ["All Transactions",[Time.parse("2000-01-01").strftime("%Y-%m-%d").to_date,Time.zone.now.to_date]],
-            ["This Month",[Time.zone.now.beginning_of_month.to_date,Time.zone.now.to_date]],
-            ["Last Month",[(Time.zone.now-1.month).beginning_of_month.to_date,(Time.zone.now-1.month).end_of_month.to_date]],
-            ["This Quarter",[Time.zone.now.beginning_of_quarter.to_date,Time.zone.now.to_date]],
-            ["Last Quarter",[Time.zone.now.last_quarter.beginning_of_quarter.to_date,Time.zone.now.last_quarter.end_of_quarter.to_date]],
-            ["Last Year",[(Time.zone.now-1.year).to_date,Time.zone.now.to_date]],
+            ["All Transactions", [Time.parse("2000-01-01").strftime("%Y-%m-%d").to_date, Time.zone.now.to_date]],
+            ["This Month", [Time.zone.now.beginning_of_month.to_date, Time.zone.now.to_date]],
+            ["Last Month", [(Time.zone.now-1.month).beginning_of_month.to_date, (Time.zone.now-1.month).end_of_month.to_date]],
+            ["This Quarter", [Time.zone.now.beginning_of_quarter.to_date, Time.zone.now.to_date]],
+            ["Last Quarter", [Time.zone.now.last_quarter.beginning_of_quarter.to_date, Time.zone.now.last_quarter.end_of_quarter.to_date]],
+            ["Last Year", [(Time.zone.now-1.year).to_date, Time.zone.now.to_date]],
             ], selected: params[:criteria]
             ), class:"custom-select", onchange: "this.form.submit()" %>
             </div>
@@ -24,5 +24,5 @@
     </div>
     <div class="table-responsive-md">
         <%= render partial:"shared/index_transactions" %>
-    </div>    
+    </div>
 </div>

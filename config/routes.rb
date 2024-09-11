@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       patch :rejection
     end
     collection do
-      post :index_filter
+      get :index_filter
     end
   end
 
