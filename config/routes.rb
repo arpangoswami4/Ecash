@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'about', to: 'dashboard#about'
 
   get 'report', to: 'report#report_page'
-  post 'report', to: 'report#report_generate'
+  get 'report_generate', to: 'report#report_generate'
 
   resources :users, only: %i[new create] do
     member do
